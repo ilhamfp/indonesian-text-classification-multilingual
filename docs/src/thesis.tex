@@ -1,0 +1,90 @@
+%--------------------------------------------------------------------%
+%
+% Berkas utama templat LaTeX.
+%
+% author Ilham Firadusi Putra
+% template dari Petra Barus dan Peb Ruswono Aryan
+%
+%--------------------------------------------------------------------%
+%
+% Berkas ini berisi struktur utama dokumen LaTeX yang akan dibuat.
+%
+%--------------------------------------------------------------------%
+
+\documentclass[12pt, a4paper, onecolumn, oneside, final]{report}
+
+\input{config/if-itb-thesis.sty}
+
+\makeatletter
+
+\makeatother
+
+\bibliography{references}
+
+\begin{document}
+
+    %Basic configuration
+    \title{Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multi-lingual Language Model}}
+    \date{}
+    \author{
+        Ilham Firdausi Putra\\
+        NIM 13516140
+    }
+
+    \pagenumbering{roman}
+    \setcounter{page}{0}
+
+    \input{chapters/cover}
+    \input{chapters/approval}
+    \input{chapters/statement}
+
+    \pagestyle{plain}
+
+    % \input{chapters/abstract-id}
+    % \input{chapters/abstract-en}
+    % \input{chapters/forewords}
+
+    % \titleformat*{\section}{\centering\bfseries\Large\MakeUpperCase}
+    \titleformat*{\section}{\centering\bfseries\fontsize{8}{12}\MakeUpperCase}
+
+    \tableofcontents
+    \listoffigures
+    \listoftables
+
+    % \titleformat*{\section}{\bfseries\Large}
+    \titleformat*{\section}{\bfseries\fontsize{8}{12}}
+    \titleformat*{\subsection}{\bfseries\fontsize{8}{12}}
+    \pagenumbering{arabic}
+
+    %----------------------------------------------------------------%
+    % Konfigurasi Bab
+    %----------------------------------------------------------------%
+    \setcounter{page}{0}
+    \renewcommand{\chaptername}{BAB}
+    \renewcommand{\thechapter}{\Roman{chapter}}
+    %----------------------------------------------------------------%
+
+    %----------------------------------------------------------------%
+    % Dafter Bab
+    % Untuk menambahkan daftar bab, buat berkas bab misalnya `chapter-6` di direktori `chapters`, dan masukkan ke sini.
+    %----------------------------------------------------------------%
+    \input{chapters/chapter-1}
+    \input{chapters/chapter-2}
+    \input{chapters/chapter-3}
+    \input{chapters/chapter-4}
+    \input{chapters/chapter-5}
+    %----------------------------------------------------------------%
+
+    % Daftar pustaka
+    \printbibliography[title={Daftar Pustaka}]
+
+    % Index
+    \appendix
+
+    \addcontentsline{toc}{part}{Lampiran}
+    \part*{Lampiran}
+
+    \input{chapters/appendix-1}
+    % \input{chapters/appendix-2}
+
+\end{document}

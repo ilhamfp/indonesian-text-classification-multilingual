@@ -1,0 +1,132 @@
+%-------------------------------------------------------------------%
+%
+% Konfigurasi dokumen LaTeX untuk laporan tesis IF ITB
+%
+% @author Ilham Firdausi Putra
+%
+%-------------------------------------------------------------------%
+%
+% Berkas ini merupakan pembaharuan dari berkas awal milik Petra Novandi dan Steven Lolong
+%
+%-------------------------------------------------------------------%
+
+% Ukuran kertas
+\special{papersize=210mm,297mm}
+
+% Setting margin
+\usepackage[top=3cm,bottom=2.5cm,left=4cm,right=2.5cm]{geometry}
+
+\usepackage{mathptmx}
+
+% Format citation
+\usepackage[backend=bibtex,citestyle=authoryear]{biblatex}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\renewcommand*\finalnamedelim{\addspace\&\space}
+
+% Judul bahasa Indonesia
+\usepackage[russian, bahasa]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\setquotestyle{english}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{blindtext}
+\usepackage{sectsty}
+\usepackage{chngcntr}
+\usepackage{etoolbox}
+\usepackage{hyperref}       % Package untuk link di daftar isi.
+\usepackage{titlesec}       % Package Format judul
+\usepackage{parskip}
+
+% confusion matrix
+\usepackage{multirow}
+
+% package di equation
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% Line satu setengah spasi
+\renewcommand{\baselinestretch}{1.5}
+
+% Setting judul chapter
+\chapterfont{\centering \large}
+\titleformat{\chapter}[display]
+  {\large\centering\bfseries}
+  {\chaptertitlename\ \thechapter}{0pt}
+    {\large\bfseries\uppercase}
+
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\titlespacing*{\subsection}{0pt}{10pt}{0pt}
+
+% Setting besar font section
+% \newcommand{\secfnt}{\fontsize{8}{12}}
+% \newcommand{\ssecfnt}{\fontsize{8}{12}}
+
+% \titleformat{\section}
+% {\normalfont\secfnt\bfseries}{\thesection}{1em}{}
+
+% \titleformat{\subsection}
+% {\normalfont\ssecfnt\bfseries}{\thesubsection}{1em}{}
+% \titleformat*{\section}{\normalsize\bfseries}
+% \titleformat*{\subsection}{\normalsize\bfseries}
+% \sectionfont{\fontsize{8}{12}\selectfont}
+
+% Untuk nampilin kode
+\usepackage[utf8]{inputenc}
+ 
+\usepackage{listings}
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+% Setting nomor pada subbsubsubbab
+\setcounter{secnumdepth}{3}
+
+\makeatletter
+
+\makeatother
+
+% Counter untuk figure dan table.
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+% bahasa asing
+\usepackage{CJKutf8}
+
+% Spacing pada daftar figure dan table
+\makeatletter
+     \renewcommand*\l@figure{\@dottedtocline{1}{1em}{3.2em}}
+\makeatother
+
+\makeatletter
+     \renewcommand*\l@table{\@dottedtocline{1}{1em}{3.2em}}
+\makeatother
+
+
+% Ganti judul bibliography
+% \renewcommand\bibname{Daftar Pustaka}
