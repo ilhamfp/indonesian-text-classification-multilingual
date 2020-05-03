@@ -2,7 +2,7 @@
 
 \section{Lingkungan Eksperimen dan Pembangunan Sistem}
 
-Eksperimen dilakukan di platform \href{https://www.kaggle.com}{Kaggle} dengan Kernel gratisnya. Bahasa Pemrograman yang digunakan adalah bahasa Python versi 3.6.6 dan CPU 1xSingle core hyper threaded Xeon Processors @2.3Ghz, 46MB Cache.
+Eksperimen dilakukan di platform \href{https://www.kaggle.com}{Kaggle} dengan Kernel gratisnya. Bahasa Pemrograman yang digunakan adalah bahasa Python versi 3.6.6. Pada \textit{fine-tuning} layer terakhir digunakan CPU 1xSingle core hyper threaded Xeon Processors @2.3Ghz, 46MB Cache. Pada \textit{fine-tuning} penuh digunakan TPU v3-8. Eksperimen dikembangkan menggunakan kombinasi pustaka PyTorch \parencite{paszke2017automatic} dan TensorFlow \parencite{tensorflow2015}.
 
 Untuk memastikan bahwasanya eksperimen \textit{reproducible} dan tidak memiliki faktor acak, semua opsi \textit{seed} baik di System, Python, hingga pustaka Pytorch ditetapkan agar hasil tidak berubah jika eksperimen dijalankan berkali-kali dengan kondisi yang sama.
 
@@ -18,84 +18,83 @@ def set_seed():
 \end{lstlisting}
 
 
-
 \section{Eksperimen}
-Secara keseluruhan, eksperimen yang dilakukan adalah dengan 2 model cross-lingual language model (XLM-R \& Multilingual BERT), 2 dataset sentimen Bahasa Indonesia (TripAdvisor \& Prosa), 2 bahasa transfer (Bahasa Inggris dan Bahasa Malaysia). Eksperimen antar model XLM-R dan Multilingual BERT dapat memperlihatkan kemajuan yang XLM-R dapatkan dengan menggunakan subword dan data lebih banyak. Dalam kedua kasus, XLM-R dan Multilingual BERT tidak dilatih ulang, melainkan model yang ada sekarang digunakan untuk mengekstraksi fitur dari teks. Teks kemudian dimasukkan ke sebuah layer neural network yang dilatih.
+Eksperimen akan dilakukan dengan 2 model multilingual (XLM-R \& Multilingual BERT). Pada tiap eksperimen akan dilakukan variasi total data (500 / 1000 / 2500 / 5000 / 7500 / MAX) dan kelipatan bahasa asing pada skenario 3. Untuk konfigurasi model, callback berupa EarlyStopping dan ReduceLROnPlateau. Penggunaan callback EarlyStopping digunakanagar model tidak overfit. Sedangkan callback ReduceLROnPlateau digunakan untuk membantu model mencapai performa yang lebih baik. Semua eksperimen dijalankan hingga diberhentikan oleh callback EarlyStopping.
 
-Selain itu, eksperimen juga dicoba dengan total data divariasikan (100 / 250 / 500 / 750 / 1000 / 2500 / 5000 / 7500 / 10981 (10000 jika TripAdvisor) / (12389 jika TripAdvisor)) dan total banyak data transfer divariasikan juga (1x - 10x). Dengan hal ini, dapat dibandingkan efek \textit{cross-lingual language model} antar banyak jumlah data dan juga antar banyaknya jumlah data transfer.
 
-\textbf{\textcolor{red}{Subbab berikutnya baru menampilkan plot hasil eksperimen. Teks yang menjelaskan akan diisi secepatnya.}}
+    \subsection{Hasil fine-tune layer terakhir}
+        Berikut hasil eksperimen dengan model XLM-R: 
+        \begin{enumerate}
+            \item Analisis sentimen dengan data Prosa \\
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.75\textwidth]{resources/plot-head-prosa-xlmr.png}
+                \caption{Plot antara F1-score dan kelipatan data bahasa Inggris pada berbagai total data di eksperimen data Prosa dengan model XLM-R.}
+                \label{fig:plot_head_prosa_xlmr}
+            \end{figure}
+            Dapat dilihat pada Gambar \ref{fig:plot_head_prosa_xlmr}, performa analisis sentimen dataset Prosa sangat terbantu dengan penambahan data berbahasa Inggris. Di berbagai total data, penambahan bahasa Inggris menambah rata-rata F1-score sebesar 0.229. Penambahan performa terbesar diobservasi pada eksperimen dengan jumlah data yang sedikit. Performa model meningkat dari 0.734 pada skenario monolingual hingga mencapai 0.819 pada penambahan bahasa Inggris sebanya 7 kali lipat dari total bahasa Indonesianya.
 
-    \subsection{Dataset Prosa, Model XLM-R. dan Bahasa Inggris Sebagai Bahasa Transfer}
-        Berikut hasil eksperimen: 
+            \item Analisis sentimen dengan data Trip Advisor \\
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.75\textwidth]{resources/plot-head-trip-xlmr.png}
+                \caption{Plot antara F1-score dan kelipatan data bahasa Inggris pada berbagai total data di eksperimen data Trip Advisor dengan model XLM-R.}
+                \label{fig:plot_head_trip_xlmr}
+            \end{figure}
+            Dapat dilihat pada Gambar \ref{fig:plot_head_trip_xlmr}, performa analisis sentimen dataset Trip Advisor terbantu dengan penambahan data berbahasa Inggris. Di berbagai total data, penambahan bahasa Inggris menambah rata-rata F1-score sebesar 0.107. Penambahan performa terbesar juga diobservasi pada eksperimen dengan jumlah data yang sedikit. Performa model meningkat dari 0.794 pada skenario monolingual hingga mencapai 0.823 pada penambahan bahasa Inggris sebanya 8 kali lipat dari total bahasa Indonesianya.
+
+            \item Klasifikasi ujaran kebencian \& kasar \\
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.75\textwidth]{resources/plot-head-toxic-xlmr.png}
+                \caption{Plot antara F1-score dan kelipatan data bahasa Inggris pada berbagai total data di eksperimen klasifikasi ujaran kebencian dengan model XLM-R.}
+                \label{fig:plot_head_toxic_xlmr}
+            \end{figure}
+            Dapat dilihat pada Gambar \ref{fig:plot_head_toxic_xlmr}, performa klasifikasi ujaran kebencian tidak terlalu terbantu dengan penambahan data berbahasa Inggris. Meski performa model sempat terbantu, penambahan lebih banyak data bahasa Inggris menurunkan performa model.
+
+        \end{enumerate}
+        
+        Melalui rangkaian eksperimen dengan model XLM-R di atas, dapat dilihat korelasi antara perbedaan performa skenario \textit{zero-shot} dan \textit{monolingual} dengan performa skenario \textit{multilingual learning}. Eksperimen sentimen analisis Prosa memiliki rata-rata perbedaan skenario 1 dan 2 sebesar 0.0005. Dengan perbedaan yang sangat kecil, penambahan bahasa Inggris sangat bermanfaat. Eksperimen sentimen analisis Trip Advisor memiliki rata-rata perbedaan skenario 1 dan 2 sebesar 0.044. Dengan perbedaan yang cukup besar, penambahan bahasa Inggris menjadi berkurang manfaatnya. Terakhir, eksperimen klasifikasi ujaran kebencian memiliki perbedaan skenario 1 dan 2 sebesar 0.093. Dengan perbedaan yang sangat besar, penambahan bahasa Inggris menjadi kurang bermanfaat dan bahkan menurunkan performa model.
+
+        Berikut hasil eksperimen dengan model mBERT: 
+
         \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-xlmr-eng-1.png}
-            \caption{Plot antara f1-score dan total data pada eksperimen dataset Prosa dengan model XLM-R dan Bahasa Inggris sebagai bahasa transfer.}
-
-            \label{fig:prosa_xlmr_eng_1}
+            \minipage{0.5\textwidth}
+              \includegraphics[width=\linewidth]{resources/plot-head-prosa-mbert.png}
+              \caption{Plot Prosa model mBERT}\label{fig:plot_head_prosa_mbert}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+              \includegraphics[width=\linewidth]{resources/plot-head-trip-mbert.png}
+              \caption{Plot Trip model mBERT.}\label{fig:plot_head_trip_mbert}
+            \endminipage
         \end{figure}
 
         \begin{figure}[ht]
             \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-xlmr-eng-2.png}
-            \caption{Plot antara total data dan banyaknya kelipatan bahasa transfer pada eksperimen dataset Prosa dengan model XLM-R dan Bahasa Inggris sebagai bahasa transfer.}
-
-            \label{fig:prosa_xlmr_eng_2}
+            \includegraphics[width=0.5\textwidth]{resources/plot-head-toxic-mbert.png}
+            \caption{Plot ujaran kebencian model mBERT.}\label{fig:plot_head_toxic_mbert}
         \end{figure}
 
+        Melalui rangkaian eksperimen dengan model mBERT di atas, dapat dilihat hal yang sama dengan eksperimen model XLM-R. Secara umum performa mBERT lebih lemah dibanding XLM-R. Selain itu, dapat kita lihat juga biasnya \textit{pretraining} mBERT ke bahasa Inggris. Di berbagai total data, performa \textit{zero-shot} lebih bagus dibanding pasangan \textit{monolingual}-nya. Hal ini dikarenakan dalam pelatihan mBERT memiliki jumlah data bahasa Inggris yang tidak proporsional dengan data lainnya. Berbeda dengan XLM-R yang melakukan \textit{sampling} pada tiap \textit{batch} pelatihannya untuk memastikan performa model proporsional antar bahasa.
+            
 
-    \subsection{Dataset Prosa, Model XLM-R dan Bahasa Malaysia Sebagai Bahasa Transfer}
-        Berikut hasil eksperimen: 
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-xlmr-malay-1.png}
-            \caption{Plot antara f1-score dan total data pada eksperimen dataset Prosa dengan model XLM-R dan Bahasa Malaysia sebagai bahasa transfer.}
-
-            \label{fig:prosa_xlmr_malay_1}
-        \end{figure}
+    \subsection{Hasil fine-tune penuh}
+        Berikut hasil eksperimen dengan model XLM-R pada analisis sentimen Prosa dan klasifikasi ujaran kebencian :
 
         \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-xlmr-malay-2.png}
-            \caption{Plot antara total data dan banyaknya kelipatan bahasa transfer pada eksperimen dataset Prosa dengan model XLM-R dan Bahasa Malaysia sebagai bahasa transfer.}
-
-            \label{fig:prosa_xlmr_malay_2}
+            \minipage{0.5\textwidth}
+              \includegraphics[width=\linewidth]{resources/plot-full-prosa-xlmr.png}
+              \caption{Plot Prosa model XLM-R}\label{fig:plot_full_prosa_xlmr}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+              \includegraphics[width=\linewidth]{resources/plot-full-toxic-xlmr.png}
+              \caption{Plot Ujaran kebencian model XLM-R.}\label{fig:plot_full_toxic_xlmr}
+            \endminipage
         \end{figure}
+        
+        (baru sebagian eksperimen yang selesai dijalankan, plot di atas menggunakan seluruh data)
+        
+        Melalui sedikit eksperimen dengan model XLM-R di atas, dapat dilihat performa model XLM-R sangat bagus. Pada analisis sentimen dataset Prosa model berhasil memprediksi seluruh data tes dengan sempurna di skenario 3 dengan kelipatan bahasa Inggris 1.5. Pada klasifikasi ujaran kebencian model berhasil mencapai F1-Score 0.892 di skenario 3 dengan kelipatan bahasa Inggris 1.
 
-    \subsection{Dataset Prosa, Model Multilingual BERT dan Bahasa Inggris Sebagai Bahasa Transfer}
-        Berikut hasil eksperimen: 
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-mbert-eng-1.png}
-            \caption{Plot antara f1-score dan total data pada eksperimen dataset Prosa dengan model Multilingual BERT dan Bahasa Inggris sebagai bahasa transfer.}
-
-            \label{fig:prosa_mbert_eng_1}
-        \end{figure}
-
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-mbert-eng-2.png}
-            \caption{Plot antara total data dan banyaknya kelipatan bahasa transfer pada eksperimen dataset Prosa dengan model Multilingual BERT dan Bahasa Inggris sebagai bahasa transfer.}
-
-            \label{fig:prosa_mbert_eng_2}
-        \end{figure}
-
-    \subsection{Dataset Prosa, Model Multilingual BERT dan Bahasa Malaysia Sebagai Bahasa Transfer}
-
-        Berikut hasil eksperimen: 
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-mbert-malay-1.png}
-            \caption{Plot antara f1-score dan total data pada eksperimen dataset Prosa dengan model Multilingual BERT dan Bahasa Malaysia sebagai bahasa transfer.}
-
-            \label{fig:prosa_mbert_malay_1}
-        \end{figure}
-
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.75\textwidth]{resources/prosa-mbert-malay-2.png}
-            \caption{Plot antara total data dan banyaknya kelipatan bahasa transfer pada eksperimen dataset Prosa dengan model Multilingual BERT dan Bahasa Malaysia sebagai bahasa transfer.}
-
-            \label{fig:prosa_mbert_malay_2}
-        \end{figure}
+    \subsection{Analisis hasil}
+        

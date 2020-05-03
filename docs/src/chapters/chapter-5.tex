@@ -1,7 +1,17 @@
 \chapter{Kesimpulan dan Saran}
 
 \section{Kesimpulan}
-\blindtext
+Berikut beberapa kesimpulan yang dapat ditarik dari tugas akhir ini:
+\begin{enumerate}
+    \item Penambahan dataset bahasa Inggris dapat membantu meningkatkan performa klasifikasi teks bahasa Indonesia menggunakan \textit{multilingual language model}. Hanya saja, disparitas antara data bahasa Indonesia dengan data bahasa Inggris, yang dapat dilihat dari performa \textit{zero-shot} dan \textit{monolingual baseline}-nya, harus diperhatikan. Pada kasus analisis sentimen dengan dataset Prosa dan Trip Advisor, jarak tersebut masing-masing rata-rata 0.0005 dan 0.044. Sehingga eksperimen sentimen analisis skenario 3 pada data tersebut mendapat peningkatan F1-score masing-masing rata-rata 0.229 dan 0.107. Sedangkan pada klasifikasi ujaran kebencian yang jaraknya 0.093, penambahan data bahasa Inggris menjadi kurang bermanfaat dan bahkan menurunkan performa model.
+    \item Penggunaan \textit{multilingual language model} yang di \textit{fine-tune} sepenuhnya sangat mangkus dalam klasifikasi teks bahasa Indonesia. Pada eksperimen sentimen analisis dataset Prosa, model ini mendapatkan F1-score sempurna. Sebuah peningkatan absolut dari penelitian sebelumnya yang mendapatkan F1-score 0,9369. Pada eksperimen klasifikasi ujaran kebencian, model ini mendapatkan F1-score 0,892 dan akurasi 89.4\%. Penelitian sebelumnya yang menggunakan 3 label, bukan yang disimplifikasi menjadi 2 seperti di penelitian ini, mendapatkan average accuracy tertinggi 77.36\%. Meski tidak dapat dibandingkan langsung dengan eksperimen terdekat penelitian sebelumnya, peningkatan ini tetap signifikan. 
+    
+    (\textbf{Pertanyaan Bu:} Saya kan simplifikasi jadi 2 label dikarenakan alasan yang saya sebutkan di bab III.1.2 dan III.2.2. Yaitu karena dataset bahasa Inggrisnya cuma punya 2 label. Selanjutnya apa saya coba saja melatih modelnya dengan bahasa Indonesia saja tapi 3 labelnya? Supaya bisa dibandingkan performanya)
+
+\end{enumerate}
 
 \section{Saran}
-\blindtext
+Berikut beberapa saran yang dapat ditarik dari tugas akhir ini:
+\begin{enumerate}
+    \item Terdapatnya disparitas antara dataset dapat menyebabkan turunnya performa. Untuk penelitian selanjutnya, dapat dicoba beberapa cara untuk mengatasi hal ini. Beberapa diantaranya adalah seperti penelitian \parencite{Lai_Oguz_Yang_Stoyanov_2019} yang menggunakan \textit{universal data augmentation} untuk mengurangi jarak tadi.
+\end{enumerate}
