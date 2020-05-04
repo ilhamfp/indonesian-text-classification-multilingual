@@ -1,10 +1,10 @@
-\chapter{Analisis dan Rancangan Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multi-lingual Language Model}}
+\chapter{Analisis dan Rancangan Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multilingual Language Model}}
 
 Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab sebelumnya. Oleh karena itu, bab ini akan terdiri dari analisis permasalahan dan rancangan solusi.
 
 \section{Analisis Permasalahan}
 	\subsection{Analisis Permasalahan Analisis Sentimen}
-	Pada penelitian ini, digunakan dataset yang sama dengan dataset \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Berikut contoh ulasan yang berlabel negatif.
+	Pada penelitian ini, akan digunakan dua buah dataset. Dataset pertama, dirujuk sebagai dataset A, adalah dataset yang sama dengan penelitian \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Dataset kedua, dirujuk sebagai dataset B,  dan dataset dari Prosa.ai \parencite{CrisdayantiPurwarianti2019}. Dataset tersebut berupa kumpulan teks Twitter, Zomato, Facebook, Instagram, Qraved yang sudah dianotasi oleh annotator profesional. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Berikut contoh ulasan yang berlabel negatif.
 
 	“Kemaren sengaja coba makan di marugame udon karena istri suka banget sama udon. jadi pesan lah yang kuah kaldu ayam, dan anak saya minta gorengan kroket. saya kira kuahnya langsung dari pancinya harusnya panas, tapi ternyata cuman hangat, yah kecewa juga sih, gorengannya juga sama udah dingin” 
 
@@ -20,7 +20,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 
 	Penelitian terkait oleh \parencite{FarhanKhodra2017} dan \parencite{CrisdayantiPurwarianti2019} sudah mengekplorasi berbagai jenis representasi dokumen dan topologi untuk menyelesaikan analisis sentimen level dokumen pada data tersebut. Meski sudah mendapatkan hasil, penelitian terkait sebelumnya belum mengeksplorasi penggunaan \textit{language model} dalam bentuk apapun, terlebih lagi penggunaan \textit{transfer learning} lintas bahasa.
 
-	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan kita menggunakan representasi antar bahasanya untuk melatih model analisis sentimen bahasa Indonesia dengan dataset bahasa lainnya.
+	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan penggunaan representasi antar bahasanya untuk melatih model analisis sentimen bahasa Indonesia dengan dataset bahasa lainnya.
 
 	\subsection{Analisis Permasalahan Klasifikasi Teks Ujaran Kebencian \& Kasar}
 
@@ -61,7 +61,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 
 	Penelitian terkait oleh \parencite{Ibrohim_Budi_2019} mengekplorasi berbagai jenis algoritma dan fitur terbaik yang dapat digunakan untuk melakukan klasifikasi pada data tersebut.. Meski sudah mendapatkan hasil, penelitian terkait sebelumnya belum mengeksplorasi penggunaan \textit{language model} dalam bentuk apapun, terlebih lagi penggunaan \textit{transfer learning} lintas bahasa.
 
-	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan kita menggunakan representasi antar bahasanya untuk melatih model klasifikasi ujaran kebencian \& kasar bahasa Indonesia dengan dataset bahasa lainnya.
+	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan penggunaan representasi antar bahasanya untuk melatih model klasifikasi ujaran kebencian \& kasar bahasa Indonesia dengan dataset bahasa lainnya.
 
 
 
@@ -72,7 +72,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 % Tidak hanya itu, gap antar domain yang menjadi ulasan pun dapat diselesaikan dengan teknik augmentasi yang \parencite{Lai_Oguz_Yang_Stoyanov_2019} kembangkan. 
 
 \section{Rancangan Solusi}
-	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, kita dapat menggunakan \textit{language model} antar bahasa XLM yang sudah dilatih dengan data dari 100 bahasa untuk memperkaya data analisis sentimen bahasa Indonesia. Diantara 100 bahasa yang sudah dilatih pada \textit{language model} XLM adalah bahasa Indonesia dan bahasa Inggris. Sub-bab selanjutnya akan membahas pemilihan dataset bahasa Inggris yang akan digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
+	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, \textit{language model} antar bahasa seperti XLM atau mBERT dapat digunakan untuk memperkaya analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Diantara berbagai bahasa yang sudah dilatih pada \textit{language model} XLM dan mBERT adalah bahasa Indonesia dan bahasa Inggris. Sub-bab selanjutnya akan membahas pemilihan dataset bahasa Inggris yang akan digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
 
 	\subsection{Dataset Bahasa Inggris Analisis Sentimen}
 	Dataset bahasa Inggris yang akan digunakan adalah dataset ulasan pada website \textit{Yelp}\footnote{\url{https://www.yelp.com/dataset/challenge}}. Dataset dipilih dikarenakan jumlahnya dan kesesuaian domainnya dengan dataset TripAdvisor. Dataset polaritas Yelp reviews  dibangun dengan mengubah semua rating bintang 1 dan 2 menjadi negatif, dan rating bintang 3 dan 4 menjadi positif. Rincian dari dataset dapat dilihat pada tabel \ref{tab:detail_yelp_review}.
@@ -119,7 +119,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 	Untuk melakukan fine-tuning, sebuah \textit{dense layer} ditambahkan di atas keluaran dari \textit{language model} yang sudah di-\textit{pretrained}. Hal ini sama dengan teknik yang \parencite{LampleConneau2019} lakukan pada masalah klasifikasi antar bahasa dengan dataset XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Teknik \textit{fine-tuning} dapat dilakukan pada seluruh \textit{layer} atau hanya \textit{layer} terakhir. Berikut penjelasan dan ilustrasi mengenai dua teknik tersebut
 	\begin{enumerate}
 		\item \textbf{Hanya Layer Terakhir}\\	
-		Melatih	model secara keseluruhan memerlukan waktu dan sumber daya yang besar. Dengan membekukan dan tidak melatih lebih lanjut komponen \textit{multilingual language model} yang sudah mempelajari representasi teks antar bahasa, kita dapat mempersingkat waktu. Komponen yang dilatih hanyalah \textit{dense layer} yang baru ditambahkan di atas model untuk melakukan klasifikasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_head_fine_tune}.
+		Melatih	model secara keseluruhan memerlukan waktu dan sumber daya yang besar. Waktu dapat dipersingkat dengan membekukan dan tidak melatih lebih lanjut komponen \textit{multilingual language model} yang sudah mempelajari representasi teks antar bahasa. Komponen yang dilatih hanyalah \textit{dense layer} yang baru ditambahkan di atas model untuk melakukan klasifikasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_head_fine_tune}.
 		\begin{figure}[h]
 		    \centering
 		    \includegraphics[width=0.75\textwidth]{resources/Head-fine-tune.png}
@@ -127,10 +127,10 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		    \label{fig:ilustrasi_head_fine_tune}
 		\end{figure}
 
-		Teknik fine-tuning seperti ini memang akan menghasilkan performa yang lebih rendah dibanding melakukan fine-tuning penuh seluruh arsitektur. Hal ini dikarenakan kita langsung menggunakan representasi teks lintas bahasa yang murni dari hasil \textit{pretraining} sebagai fitur dan tidak melakukan penyempurnaan representasi ke permasalahan yang sedang diselesaikan. Tetapi dengan begini kita tetap akan dapat mengobservasi efek dari penggunaan \textit{multi-lingual language model} dalam memanfaatkan bahasa yang lebih banyak sumber dayanya ke permasalahan bahasa Indonesia.
+		Teknik fine-tuning seperti ini memang akan menghasilkan performa yang lebih rendah dibanding melakukan fine-tuning penuh seluruh arsitektur. Hal ini dikarenakan penggunaan representasi teks lintas bahasa yang murni dari hasil \textit{pretraining} sebagai fitur dan tidak dilakunannya penyempurnaan representasi ke permasalahan yang sedang diselesaikan. Tetapi walaupun begitu, efek dari penggunaan \textit{multilingual language model} dalam memanfaatkan bahasa yang lebih banyak sumber dayanya ke permasalahan bahasa Indonesia tetap dapat diobservasi.
 
 		\item \textbf{Penuh}\\
-		Pada teknik fine-tuning full, seluruh arsitektur dilatih dengan fungsi \textit{loss} dari hasil klasifikasi. Dengan teknik ini, kita dapat melihat potensi secara keseluruhan dari \textit{pretrained multi-lingual language model}. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_full_fine_tune}.
+		Pada teknik fine-tuning full, seluruh arsitektur dilatih dengan fungsi \textit{loss} dari hasil klasifikasi. Dengan teknik ini, potensi secara keseluruhan dari \textit{pretrained multilingual language model} dapat diobservasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_full_fine_tune}.
 
 		\begin{figure}[h]
 		    \centering
@@ -155,7 +155,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		\end{figure}
 
 		\item \textbf{Skenario B: Zero-shot}\\
-		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris, sedangkan data validasi dan tes adalah data bahasa Indonesia. Skenario ini digunakan untuk melihat disparitas antara performa model yang dilatih dengan bahasa berbeda. Dari perbedaan performa skenario A dan B, kita dapat melihat sebaik apa representasi teks antar bahasa dari \textit{multi-lingual language model} dan juga hubungan antara dataset yang digunakan. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_b}.
+		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris, sedangkan data validasi dan tes adalah data bahasa Indonesia. Skenario ini digunakan untuk melihat disparitas antara performa model yang dilatih dengan bahasa berbeda. Dari perbedaan performa skenario A dan B, representasi teks antar bahasa dari \textit{multilingual language model} dan juga hubungan antara dataset yang digunakan dapat dievaluasi. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_b}.
 		\begin{figure}[h]
 		    \centering
 		    \includegraphics[width=0.75\textwidth]{resources/Data-tipe-B.png}
@@ -164,7 +164,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		\end{figure}
 
 		\item \textbf{Skenario C: Multilingual Learning}\\
-		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris dan Indonesia, sedangkan data validasi dan tes adalah data bahasa Indonesia. Pada skenario ini, perbandingan antara banyak data bahasa Inggris dengan data bahasa Indonesia akan divariasikan. Skenario ini digunakan untuk melihat seberapa efektif \textit{multilingual learning} dengan \textit{multi-lingual language model} pada klasifikasi teks bahasa Indonesia. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_c}.
+		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris dan Indonesia, sedangkan data validasi dan tes adalah data bahasa Indonesia. Pada skenario ini, perbandingan antara banyak data bahasa Inggris dengan data bahasa Indonesia akan divariasikan. Skenario ini digunakan untuk melihat seberapa efektif \textit{multilingual learning} dengan \textit{multilingual language model} pada klasifikasi teks bahasa Indonesia. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_c}.
 		\begin{figure}[h]
 		    \centering
 		    \includegraphics[width=0.75\textwidth]{resources/Data-tipe-C.png}

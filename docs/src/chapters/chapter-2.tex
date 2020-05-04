@@ -29,7 +29,7 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
     \begin{figure}[ht]
         \centering
         \includegraphics[width=1\textwidth]{resources/cbow-skip-gram-illustration.png}
-        \caption[Ilustrasi model CBOW dan Skip-gram.]{ Dalam model CBOW, representasi konteks terdistribusi (atau kata-kata sekitarnya) digabungkan untuk memprediksi kata di tengah. Dalam model Skip-gram, representasi terdistribusi dari kata input digunakan untuk memprediksi kata-kata sekitarnya \parencite{MikolovExploiting}.}
+        \caption{Ilustrasi model CBOW dan Skip-gram. \parencite{MikolovExploiting}.}
         \label{fig:ilustrasi_cbow_skip_gram}
     \end{figure}
     
@@ -54,11 +54,11 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
     \begin{figure}[ht]
         \centering
         \includegraphics[width=1\textwidth]{resources/ilustration-eng-spn-word.png}
-        \caption[Ilustrasi ruang \textit{embedding} antara bahasa Inggris dan Spanyol \parencite{MikolovExploiting}.]{ Vektor yang sudah dipelajari diproyeksikan ke ruang dua dimensi menggunakan PCA dan dirotasi.}
+        \caption{Ilustrasi ruang \textit{embedding} antara bahasa Inggris dan Spanyol \parencite{MikolovExploiting}.}
         \label{fig:ilustrasi_embedding_inggris_spanyol}
     \end{figure}
 
-    Dikarenakan miripnya representasi bahasa, jika kita mengetahui translasi beberapa objek, contoh angka satu sampai lima, kita dapat menyesuaikan representasi antar bahasa dengan rotasi, \textit{scaling}, dan translasi untuk mendapatkan tranlasi angka lainnya. Lebih formalnya, misalkan diberi satu set pasangan kata dan representasi vektor yang terkait \begin{math} \begin{Bmatrix} {x_{i}, z_{i}} \end{Bmatrix}_{i=1}^{n} \end{math}, di mana \(x_{i}\in\mathbb{R}^{d_{1}}\) adalah representasi terdistribusi dari kata i dalam bahasa sumber, dan \(z_{i}\in\mathbb{R}^{d_{2}}\) adalah representasi vektor dari terjemahannya. Kemudian dicari matriks transformasi \( W\) sehingga \(W x_{i}\) mendekati \(z_{i}\). Dalam praktiknya, \(W\) dapat dipelajari dengan masalah optimasi berikut
+    Dikarenakan miripnya representasi bahasa, jika translasi beberapa objek diketahui, contoh angka satu sampai lima, representasi antar bahasa dapat disesuaikan dengan rotasi, \textit{scaling}, dan translasi untuk mendapatkan tranlasi angka lainnya. Lebih formalnya, misalkan diberi satu set pasangan kata dan representasi vektor yang terkait \begin{math} \begin{Bmatrix} {x_{i}, z_{i}} \end{Bmatrix}_{i=1}^{n} \end{math}, di mana \(x_{i}\in\mathbb{R}^{d_{1}}\) adalah representasi terdistribusi dari kata i dalam bahasa sumber, dan \(z_{i}\in\mathbb{R}^{d_{2}}\) adalah representasi vektor dari terjemahannya. Kemudian dicari matriks transformasi \( W\) sehingga \(W x_{i}\) mendekati \(z_{i}\). Dalam praktiknya, \(W\) dapat dipelajari dengan masalah optimasi berikut
 
     \begin{equation}
         \min_{W}\sum_{i=1}^{n}\left \| Wx_i-z_i \right \|^2
@@ -67,7 +67,7 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
 
     yang dapat diselesaikan dengan \textit{stochastic gradient descent} \parencite{MikolovExploiting}.
 
-    Pada saat melakukan prediksi, untuk setiap kata baru yang diberikan dan representasi vektor kontinu \(x\), kita dapat memetakannya ke ruang bahasa lain dengan menghitung \(z = W x\). Kemudian kita dapat menemukan kata yang representasinya paling dekat dengan \(z\) dalam ruang bahasa target, menggunakan \textit{cosine similarity} sebagai metrik jarak. Terlepas dari kesederhanaannya, metode transformasi linier ini bekerja dengan baik dalam eksperimen yang \parencite{MikolovExploiting} jalankan, lebih baik daripada teknik \textit{nearest neighbour} dan juga pengklasifikasi \textit{neural network}.
+    Setiap kata baru yang diberikan dan representasi vektor kontinu \(x\) dapat dipetakan ke ruang bahasa lain dengan menghitung \(z = W x\) pada saat prediksi. Kemudian kata yang representasinya paling dekat dengan \(z\) dalam ruang bahasa target dapat ditemukan menggunakan \textit{cosine similarity} sebagai metrik jarak. Terlepas dari kesederhanaannya, metode transformasi linier ini bekerja dengan baik dalam eksperimen yang \parencite{MikolovExploiting} jalankan, lebih baik daripada teknik \textit{nearest neighbour} dan juga pengklasifikasi \textit{neural network}.
 
     Meski \textit{monolingual mapping} sukses mendapatkan ruang \textit{embedding} antar bahasa, teknik ini mahal dan susah diaplikasikan ke bahasa yang memiliki sumber daya rendah. Untuk dapat mengaplikasikan teknik ini diperlukan kamus kata-kata atau kalimat paralel antar bahasa, hal yang seringkali tidak tersedia pada bahasa bersumber daya rendah. Oleh karena itu, mengaplikasikan teknik ini sangat sulit pada bahasa Indonesia. 
 
@@ -109,7 +109,7 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
     Dapat dilihat contoh sederhana algoritma \textit{Byte Pair Encoding} pada Lampiran \ref{appendix:simple_bpe_algorithm} oleh \parencite{Sennrich_Haddow_Birch_2016}. Pada algoritma ini, operasi \textit{Byte Pair Encoding} belajar dari kamus kata {‘low’, ‘lower’, ‘newest’, ‘widest’}. Pada akhir iterasi, akan diperoleh representasi dari kamus kata dalam bentuk simbol-simbol yang dipelajari. Pada contoh tersebut, kata 'lowest' yang berada diluar kamus kata akan direpresentasikan menjadi gabungan dari simbol 'low' dan 'est'. Di sini dapat dilihat bagaimana \textit{Byte Pair Encoding} dapat membantu merepresentasikan kata yang berada diluar kamus kata. 
 
     \subsection{Masked Language Modeling (MLM)}
-    Dideskripsikan pada penelitian oleh \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak akan menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan kita untuk melatih \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
+    Dideskripsikan pada penelitian oleh \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak akan menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan pelatihan \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
 
     \begin{figure}[ht]
         \centering
