@@ -77,6 +77,36 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
 \section{Language Model Pretraining Lintas Bahasa}
     Seperti yang dijelaskan sebelumnya, penelitian \parencite{LampleConneau2019} mendemonstrasikan pembangunan \textit{language model pretraining} lintas bahasa yang dilakukan tanpa memerlukan korpus paralel atau kamus bilingual. Bab ini akan menjelaskan bagian-bagian dari \textit{language model} yang diberi nama XLM ini yaitu \textit{shared sub-word vocabulary}, \textit{masked language modeling}, arsitektur \textit{transformer}, dan teknik \textit{pretraining}.
 
+    \subsection{Arsitektur Transformer}
+
+    Berdasarkan \parencite{AttentionVaswani2017}, arsitektur \textit{Transformer} terdiri dari \textit{self-attention} dan \textit{point-wise} yang ditumpuk, dan \textit{fully connected layer} untuk enkoder dan dekoder. Ilustrasi secara keseluruhan arsitektur \textit{Transformer} dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.4\textwidth]{resources/overview-transformer.png}
+        \caption{Ilustrasi \textit{transformer} secara keseluruhan \parencite{AttentionVaswani2017}.}
+        \label{fig:ilustrasi_transformer}
+    \end{figure}
+
+    Fungsi \textit{attention} dapat digambarkan sebagai memetakan kueri dan pasangan \textit{key-value} untuk suatu output, di mana kueri (Q), kunci (K), nilai (V), dan \textit{output} semuanya vektor. \textit{Output} dihitung sebagai \textit{weighted sum} dari nilai-nilai, di mana bobot yang ditetapkan untuk setiap nilai dihitung oleh fungsi kompatibilitas kueri dari kunci yang sesuai.
+
+    Pada penelitian \parencite{AttentionVaswani2017}, tipe \textit{attention} ini disebut "\textit{Scaled Dot-Product Attention}". Input terdiri dari kueri dan kunci dimensi \(d_{k}\), dan nilai dimensi \(d_{v}\). \textit{Dot product} dari kueri dihitung dengan semua kunci, membaginya dengan \(\sqrt{d_{k}}\), dan menerapkan fungsi softmax untuk mendapatkan bobot pada nilai. Ilustrasi \textit{attention} dapat dilihat pada Gambar \ref{fig:ilustrasi_attention}.
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.2\textwidth]{resources/overview-attention.png}
+        \caption{Ilustrasi \textit{attention} secara keseluruhan \parencite{AttentionVaswani2017}.}
+        \label{fig:ilustrasi_attention}
+    \end{figure}
+
+    Pada prakteknya, hasil keluaran fungsi \textit{attention} pada sebuah set kueri dihitung secara besamaan, dikemas bersama menjadi matriks Q. Kunci dan nilai juga dikemas bersama menjadi matriks K dna V. Kemudian hasil keluaran dapat dihitung dengan:
+
+    \begin{equation}
+        Attention(Q,K,V) = softmax(\frac{QK^{T}}{\sqrt{d_k}})V
+    \end{equation}
+
+    Pada model XLM yang akan digunakan di tugas akhir ini, digunakan model dengan 12-\textit{layer Transformer}. Arsitektur model ini sama dengan arsitektur model yang digunakan \parencite{LampleConneau2019} untuk melakukan klasifikasi pada data tolak ukur XNLI.
+
     \subsection{Shared sub-word vocabulary}
     % \subsection{\textit{Shared sub-word vocabulary}}
     Berdasarkan penelitian oleh \parencite{Sennrich_Haddow_Birch_2016}, salah satu inspirasi menggunakan \textit{sub-word} adalah fakta bahwa terjemahan beberapa kata bersifat transparan karena terjemahannya dapat diterjemahkan oleh penerjemah yang kompeten, bahkan jika itu adalah kata yang belum pernah ditemui, berdasarkan terjemahan dari \textit{sub-word} yang dikenal seperti morfemnya atau fonemnya. Kategori kata yang terjemahannya berpotensi transparan meliputi:
@@ -119,36 +149,6 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
     \end{figure}
 
     Sama dengan BERT, persentase dari kata yang akan dipilih untuk disembunyikan pada XLM adalah 15 persen. Setelah sebuah posisi dipilih secara acak, sebuah kata kemudian memiliki 80 persen kemungkinan untuk disembunyikan, 10 persen kemungkinan untuk diganti menjadi sebuah kata acak, dan 10 persen kemungkinan tidak diganti sama sekali.
-
-    \subsection{Arsitektur Transformer}
-
-    Berdasarkan \parencite{AttentionVaswani2017}, arsitektur \textit{Transformer} terdiri dari \textit{self-attention} dan \textit{point-wise} yang ditumpuk, dan \textit{fully connected layer} untuk enkoder dan dekoder. Ilustrasi secara keseluruhan arsitektur \textit{Transformer} dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
-
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.4\textwidth]{resources/overview-transformer.png}
-        \caption{Ilustrasi \textit{transformer} secara keseluruhan \parencite{AttentionVaswani2017}.}
-        \label{fig:ilustrasi_transformer}
-    \end{figure}
-
-    Fungsi \textit{attention} dapat digambarkan sebagai memetakan kueri dan pasangan \textit{key-value} untuk suatu output, di mana kueri (Q), kunci (K), nilai (V), dan \textit{output} semuanya vektor. \textit{Output} dihitung sebagai \textit{weighted sum} dari nilai-nilai, di mana bobot yang ditetapkan untuk setiap nilai dihitung oleh fungsi kompatibilitas kueri dari kunci yang sesuai.
-
-    Pada penelitian \parencite{AttentionVaswani2017}, tipe \textit{attention} ini disebut "\textit{Scaled Dot-Product Attention}". Input terdiri dari kueri dan kunci dimensi \(d_{k}\), dan nilai dimensi \(d_{v}\). \textit{Dot product} dari kueri dihitung dengan semua kunci, membaginya dengan \(\sqrt{d_{k}}\), dan menerapkan fungsi softmax untuk mendapatkan bobot pada nilai. Ilustrasi \textit{attention} dapat dilihat pada Gambar \ref{fig:ilustrasi_attention}.
-
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=0.2\textwidth]{resources/overview-attention.png}
-        \caption{Ilustrasi \textit{attention} secara keseluruhan \parencite{AttentionVaswani2017}.}
-        \label{fig:ilustrasi_attention}
-    \end{figure}
-
-    Pada prakteknya, hasil keluaran fungsi \textit{attention} pada sebuah set kueri dihitung secara besamaan, dikemas bersama menjadi matriks Q. Kunci dan nilai juga dikemas bersama menjadi matriks K dna V. Kemudian hasil keluaran dapat dihitung dengan:
-
-    \begin{equation}
-        Attention(Q,K,V) = softmax(\frac{QK^{T}}{\sqrt{d_k}})V
-    \end{equation}
-
-    Pada model XLM yang akan digunakan di tugas akhir ini, digunakan model dengan 12-\textit{layer Transformer}. Arsitektur model ini sama dengan arsitektur model yang digunakan \parencite{LampleConneau2019} untuk melakukan klasifikasi pada data tolak ukur XNLI.
 
     \subsection{Teknik Pretraining}
     Model XLM ini merupakan perkembangan dari penelitian oleh \parencite{radford2018improving}; \parencite{HowardRuder2018}; dan \parencite{Devlin_Chang_Lee_Toutanova_2019}; yang meneliti \textit{language modeling} untuk melakukan \textit{pretraining Transformer encoder}. Penelitian-penelitian tersebut sukses membuktikan mangkusnya teknik ini dengan meraih kenaikan performa yang tinggi pada dataset tolak ukur GLUE \parencite{GLUE2019}.
