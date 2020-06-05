@@ -8,9 +8,11 @@ Permasalahan klasifikasi pembelajaran mesin \textit{supervised} dapat digambarka
 
 Sebelum sebuah teks dapat diproses, algoritma pembelajaran mesin memerlukan representasi teks dalam bentuk numerik. Untuk hal itu, berkembanglah berbagai teknik untuk merepresentasikan teks sebaik mungkin. Bentuk paling sederhananya adalah pendekatan \textit{one-hot-vector} yang merepresentasikan teks berdasarkan ada atau tidaknya saja. Representasi seperti ini memiliki kekurangan seperti tidak diperhatikannya letak kata dan membesarnya representasi kata seiring membesarnya kosa kata. Kekurangan ini dapat diselesaikan dengan \textit{word embedding} seperti Word2vec \parencite{MikolovWord2vec} yang mempelajari representasi kata sebagai vektor bernilai riil. Tetapi kelemahan pemrosesan teks dengan \textit{word embedding} adalah masih dangkalnya representasi. Representasi \textit{word embedding} tidak dapat menangkap interaksi antar kata di kalimat yang kompleks. Oleh karena itu, berkembanglah \textit{language model} seperti BERT \parencite{Devlin_Chang_Lee_Toutanova_2019} dan XLM \parencite{LampleConneau2019} yang tidak hanya belajar di level kata, tetapi sampai dapat memperhatikan konteks di mana kata tersebut berada. 
 
-Pengembangan representasi teks yang akurat memerlukan banyak data teks. Bahasa Indonesia sebagai bahasa yang ingin diteliti di sini memiliki lebih sedikit data teks dibanding bahasa yang lebih populer seperti bahasa Inggris. Sebagai contoh, bahasa Inggris memiliki dataset seperti \textit{Amazon review}\footnote{\url{http://snap.stanford.edu/data/web-Amazon.html}} atau \textit{Yelp review}\footnote{\url{https://www.yelp.com/dataset/challenge}} yang totalnya hingga jutaan data. Banyaknya data ini mendorong perkembangan yang memungkinkan analisis sentimen mendapatkan akurasi 97.5\%\footnote{\url{https://gluebenchmark.com/leaderboard}} (Diakses pada tanggal 1 Mei 2020) seperti pada \textit{benchmark} GLUE\parencite{GLUE2019}.
+Pengembangan representasi teks yang akurat memerlukan banyak data teks. Bahasa Indonesia sebagai bahasa yang ingin diteliti di sini memiliki lebih sedikit data teks dibanding bahasa yang lebih populer seperti bahasa Inggris. Sebagai contoh, pada permasalahan analisis sentimen dan ujarna kebencian, bahasa Inggris memiliki dataset seperti \textit{Yelp Review}\footnote{\url{https://www.yelp.com/dataset/challenge}} dan \textit{Jigsaw Toxic Comment}\footnote{\url{https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classificationl}} yang totalnya hingga jutaan data. 
 
-Untuk menanggulangi masalah kurangnya data, dapat digunakan teknik yang disebut dengan transfer learning lintas bahasa. Transfer Learning adalah teknik melakukan pembelajaran mesin dari sebuah domain, biasanya yang memiliki lebih banyak data, lalu menggunakan model yang sudah dipelajari untuk menyelesaikan masalah di domain lainnya \parencite{ruder2019transfer}. Penggunaan teknik ini sangat sukses mendorong kemajuan besar di berbagai permasalahan pemrosesan teks alami. Dengan transfer learning lintas bahasa, bahasa yang memiliki sumber daya rendah dapat memanfaatkan sumber daya dari bahasa yang jauh lebih kaya.
+Perkembangan dalam bidang representasi teks telah memungkinkan teks dari berbagai bahasa direpresentasikan dalam satu bidang yang sama. Untuk menanggulangi masalah kurangnya data, representasi teks antar bahasa dapat dimanfaatkan untuk membangun model klasifikasi bahasa Indonesia dengan menggunakan kombinasi data bahasa Indonesia dan bahasa lain. Suatu teknik yang memperhitungkan semua dokumen pelatihan dari semua bahasa ketika membangun model klasifikasi \textit{monolingual} untuk bahasa tertentu sudah didemonstrasikan oleh \parencite{Wei_Shi_Yang_2007}. Pada demonstrasinya, mereka menunjukkan bahwa pendekatan ini lebih akurat dibanding model yang hanya dilatih pada satu bahasa saja untuk permasalahan kategorisasi teks. 
+
+% Transfer Learning adalah teknik melakukan pembelajaran mesin dari sebuah domain, biasanya yang memiliki lebih banyak data, lalu menggunakan model yang sudah dipelajari untuk menyelesaikan masalah di domain lainnya \parencite{ruder2019transfer}. Penggunaan teknik ini sangat sukses mendorong kemajuan besar di berbagai permasalahan pemrosesan teks alami. Dengan transfer learning lintas bahasa, bahasa yang memiliki sumber daya rendah dapat memanfaatkan sumber daya dari bahasa yang jauh lebih kaya.
 
 Dengan berkembangnya akses masyarakat Indonesia ke internet, semakin banyak data teks yang tersedia secara digital. Data ini penuh informasi dan sangat berguna jika diolah. Bagi pemilik bisnis contohnya, komentar warganet di internet dapat dianalisis sentimennya untuk mengetahui reaksi mereka terhadap sesuatu. Lalu bagi yang memiliki website, mendeteksi pelanggaran dalam percakapan online seperti ujaran kebencian atau kasar secara otomatis dapat sangat membantu. Permasalahan analisis sentimen dan klasifikasi ujaran kebencian \& kasar tersebutlah yang akan menjadi fokus dalam tugas akhir ini.
 
@@ -20,21 +22,21 @@ Klasifikasi ujaran kebencian \& kasar adalah proses mengategorikan sebuah teks, 
 
 Analisis sentimen dan klasifikasi ujaran kebencian \& kasar dapat dilakukan dengan pendekatan berbasis aturan atau statistik. Dalam sentimen analisisis, pendekatan berbasis aturan seperti VADER \parencite{VADER} memanfaatkan kamus kata sentimen untuk menilai sentimen suatu dokumen. Begitu juga dalam klasifikasi ujaran kebencian \& kasar, \parencite{lexicon_hatespeech_2015} memanfaatkan kamus yang berisi kata-kata negatif dan kebencian. Pada pendekatan berbasis aturan, dokumen direpresentasikan sebagai jumlah kemunculan setiap kata. Sedangkan pendekatan berbasis statistik mencoba mempelajari aturan klasifikasi sentimen dengan teknik-teknik pembelajaran mesin. Pada pendekatan berbasis statistik, teks direpresentasikan dalam bentuk numerik dan selanjutnya diproses menggunakan algoritma pembelajaran mesin. Penelitian pembelajaran mesin teranyar yang dilakukan pada bahasa Indonesia adalah penelitian oleh \parencite{CrisdayantiPurwarianti2019} untuk sentimen analisis dan oleh \parencite{Ibrohim_Budi_2019} untuk ujaran kebencian \& kasar.
 
-Hasil penelitian \parencite{LampleConneau2019} membuktikan efektivitas \textit{transfer learning} lintas bahasa dengan \textit{language model} yang sudah dilatih pada Bahasa Inggris ke bahasa lainnya. Dalam penelitiannya, \textit{language model} dilatih pada berbagai bahasa secara \textit{unsupervised} atau tanpa korpus paralel sama sekali. Hasilnya terbukti efektif dalam berbagai masalah mulai dari translasi mesin, pengembangan language model bahasa yang memiliki data teks sedikit, hingga berbagai tugas klasifikasi. Penelitian ini mencoba menggunakan teknik tersebut untuk meningkatkan performa hasil penelitian \parencite{CrisdayantiPurwarianti2019} mengenai analisis sentimen di bahasa Indonesia dam versi biner penelitian \parencite{Ibrohim_Budi_2019} mengenai ujaran kebencian \& kasar. 
+Penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019} dan \parencite{LampleConneau2019} membuktikan efektivitas representasi teks lintas bahasa \textit{multilingual language model} pada berbagai permasalahan. Dalam penelitiannya, \textit{language model} yang dilatih pada berbagai bahasa secara \textit{unsupervised} atau tanpa korpus paralel sama sekali terbukti efektif dalam berbagai masalah mulai dari translasi mesin, pengembangan language model bahasa yang memiliki data teks sedikit, hingga berbagai tugas klasifikasi. Bergerak dari hal itu, penelitian ini memanfaatkan \textit{multilingual language model} untuk membangun model klasifikasi teks bahasa Indonesia yang meningkatkan performa hasil penelitian \parencite{CrisdayantiPurwarianti2019} mengenai analisis sentimen di bahasa Indonesia dam versi biner penelitian \parencite{Ibrohim_Budi_2019} mengenai ujaran kebencian \& kasar. 
 
 \section{Rumusan Masalah}
 
 Berdasarkan latar belakang yang telah dipaparkan pada sub bab sebelumnya, tugas akhir ini akan fokus dalam mengetahui: 
 \begin{enumerate}
-	\item Bagaimana pengaruh teknik \textit{transfer learning} lintas bahasa dengan \textit{pretrained language model} dalam permasalahan analisis sentimen dan klasifikasi ujaran kebencian \& kasar bahasa Indonesia?
+	\item Bagaimana pengaruh penggunaan \textit{multilingual language model} dalam permasalahan analisis sentimen dan klasifikasi ujaran kebencian \& kasar bahasa Indonesia?
 \end{enumerate}
 
 \section{Tujuan}
 
 Tujuan dari tugas akhir ini adalah sebagai berikut:
 \begin{enumerate}
-	\item Membangun model analisis sentimen dan klasifikasi ujaran kebencian \& kasar bahasa Indonesia menggunakan fitur dari \textit{language model pretraining} lintas bahasa.
-	\item Membandingkan performa analisis sentimen dan klasifikasi ujaran kebencian \& kasar menggunakan \textit{language model pretraining} lintas bahasa dengan yang tanpa \textit{language model pretraining} lintas bahasa.
+	\item Membangun model analisis sentimen dan klasifikasi ujaran kebencian \& kasar bahasa Indonesia menggunakan \textit{multilingual language model}.
+	\item Membandingkan performa analisis sentimen dan klasifikasi ujaran kebencian \& kasar menggunakan \textit{multilingual language model} dengan yang tanpa \textit{multilingual language model}.
 \end{enumerate}
 
 \section{Batasan Masalah}
@@ -42,6 +44,7 @@ Tujuan dari tugas akhir ini adalah sebagai berikut:
 Batasan masalah diperlukan untuk membatasi dan menspesifikasi sejauh apa hasil tugas akhir ini akan dibuat. Berikut merupakan batasan masalah untuk tugas akhir ini:
 \begin{enumerate}
 	\item Bahasa yang akan dijadikan sumber pembelajaran adalah bahasa Inggris dan bahasa Indonesia.
+	\item Model yang digunakan adalah Multilingual BERT \parencite{Devlin_Chang_Lee_Toutanova_2019} dan XLM-R \parencite{Conneau_XLMR}
 	\item Data teks dan label untuk analisis sentimen menggunakan data dari penelitian sebelumnya pada topik ini oleh \parencite{CrisdayantiPurwarianti2019}.
 	\item Data teks dan label untuk klasifikasi ujaran kebencian \& kasar menggunakan data dari penelitian sebelumnya pada topik ini oleh \parencite{Ibrohim_Budi_2019}.
 \end{enumerate}
@@ -50,22 +53,27 @@ Batasan masalah diperlukan untuk membatasi dan menspesifikasi sejauh apa hasil t
 
 Berikut metodologi yang digunakan dalam pengembangan tugas akhir ini:
 \begin{enumerate}
-	\item Studi literatur \\
-	Mempelajari berbagai literatur baik berupa buku, tesis, jurnal penelitian, makalah, maupun situs yang memuat informasi yang terkait dengan pembangunan analisis sentimen berbasis deep learning dan \textit{transfer learning} lintas bahasa. Studi literatur berfokus kepada \textit{transfer learning} lintas bahasa, analisis sentimen, deep learning, dan metrik evaluasinya.
+	\item Analisis permasalahan \\
+	Pada tahap ini, dilakukan identifikasi dan analisis pada permasalahan klasifikasi teks bahasa Indonesia. Tujuan utama tahap ini adalah memahami dasar klasifikasi teks, analisis sentimen, dan klasifikasi ujaran kebencian. Kemudian ditentukan dataset serta metode yang relevan untuk dijadikan acuan.
 
-	\item Analisis dan perancangan solusi \\
-	Pada tahap ini, solusi terbaik akan dipilih dari alternatif solusi berdasarkan kelebihan dan kekurangan masing-masing solusi yang akan diimplementasikan pada analisis sentimen bahasa Indonesia dengan \textit{transfer learning} lintas bahasa. Perancangan solusi mencakup penyusunan arsitektur sistem dan perancangan komponen-komponen sistem yang akan dibangun dengan metode tertentu selama proses pengerjaan tugas akhir ini.
+	\item Pengembangan program \\
+	Pada tahap ini, dilakukan pengembangan program untuk menyelesaikan permasalahan analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Program dikembangkan menggunakan bahasa Python, pustaka PyTorch \parencite{paszke2017automatic}, pustaka Keras \parencite{chollet2015keras} dengan \textit{backend} TensorFlow \parencite{tensorflow2015}, dan pustaka Transformer oleh HuggingFace \parencite{Wolf_Debut_Sanh_Chaumond_Delangue_Moi_Cistac_Rault_Louf_Funtowicz}.
 
-	\item Pengembangan dan evaluasi sistem \\
-	Pada tahap ini, dilakukan eksperimen dari hasil analisis dan perancangan solusi, mengevaluasi/menguji  hasil eksperimen, dan mengoptimasi kinerja sistem berdasarkan hasil evaluasi. Keluaran utama dari tahap ini adalah analisis terhadap klasifikasi teks berbahasa Indonesia dengan model lintas bahasa.
+	\item Eksperimen dan evaluasi \\
+	Pada tahap ini, dilakukan eksperimen dari hasil pengembangan program dan mengoptimasi kinerja program berdasarkan hasil evaluasi. Keluaran utama dari tahap ini adalah hasil akhir yang selanjutnya dianalisa.
+	
+	\item Analisis hasil \\
+	Pada tahap ini, dilakukan analisis terhadap hasil seluruh eksperimen dan evaluasi kinerja klasifikasi teks bahasa Indonesia. Perbandingan terhadap penelitian terkait sebelumnya dilakukan dan kesimpulan diambil.
+
+
 \end{enumerate}
 
 \section{Sistematika Pembahasan}
 Berikut sistematika dan pembahasan tugas akhir ini:
 \begin{enumerate}
 	\item \textbf{Bab I Pendahuluan} berisi penjelasan yang melandasi pembuatan tugas akhir ini. Hal itu meliputi penjelasan latar belakang, rumusan masalah, tujuan, batasan masalah, metodologi, dan sistematika penulisan.
-	\item \textbf{Bab II Studi Literatur} berisi hasil studi literatur terkait representasi teks dan \textit{language model} lintas bahasa. Hal ini meliputi penjelasan mengenai awal mula representasi teks lintas bahasa, perkembangan representasi lintas bahasa dengan \textit{shared sub-word vocabulary}, perkembangan \textit{language model}, dan penelitian terkaitnya.
-	\item \textbf{Bab III Analisis dan Rancangan Analisis Sentimen Teks Berbahasa Indonesia Menggunakan Cross-Lingual Language Model Pretrain} berisi analisis permasalahan, analisis rancangan komponen dataset solusi, dan analisis rancangan komponen klasifikasi solusi.
+	\item \textbf{Bab II Studi Literatur} berisi hasil studi literatur terkait representasi teks dan \textit{multilingual language model}. Hal ini meliputi penjelasan mengenai awal mula representasi teks lintas bahasa, perkembangan representasi lintas bahasa, perkembangan \textit{language model}, dan penelitian terkaitnya.
+	\item \textbf{Bab III Analisis dan Rancangan Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multilingual Language Model}} berisi analisis permasalahan, analisis rancangan komponen dataset solusi, dan analisis rancangan komponen klasifikasi solusi.
 	\item \textbf{Bab IV Eksperimen dan Pembangunan Sistem} berisi rincian proses mengenai eksperimen yang dilakukan pada tugas akhir beserta evaluasi dan analisis terhadap hasil eksperimen. Bab ini juga menjelaskan lebih rinci lingkungan dan implementasi masing-masing komponen beserta evaluasi terhadap hasil implementasi tersebut.
 	\item \textbf{Bab V Kesimpulan dan Saran} berisi kesimpulan terhadap hasil penelitan yang telah dilakukan dalam tugas akhir beserta saran-saran terkait pekerjaan lanjutan yang dapat dijadikan sebagai acuan untuk pengembangan selanjutnya.
 \end{enumerate}

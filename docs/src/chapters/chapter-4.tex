@@ -84,15 +84,52 @@ Eksperimen akan dilakukan dengan 2 model multilingual (XLM-R \& Multilingual BER
         \begin{figure}[ht]
             \minipage{0.5\textwidth}
               \includegraphics[width=\linewidth]{resources/plot-full-prosa-xlmr.png}
-              \caption{Plot dataset B model XLM-R}\label{fig:plot_full_prosa_xlmr}
+              \caption{Plot dataset A model XLM-R}\label{fig:plot_full_prosa_xlmr}
             \endminipage\hfill
             \minipage{0.5\textwidth}
-              \includegraphics[width=\linewidth]{resources/plot-full-toxic-xlmr.png}
-              \caption{Plot Ujaran kebencian model XLM-R.}\label{fig:plot_full_toxic_xlmr}
+              \includegraphics[width=\linewidth]{resources/plot-full-trip-advisor-xlmr.png}
+              \caption{Plot dataset B model XLM-R}\label{fig:plot_full_prosa_xlmr}
             \endminipage
         \end{figure}
-        
-        Melalui sedikit eksperimen dengan model XLM-R, dapat dilihat performa model XLM-R sangat bagus. Pada analisis sentimen dataset B model berhasil memprediksi seluruh data tes dengan sempurna di skenario 3 dengan kelipatan bahasa Inggris 1.5. Pada klasifikasi ujaran kebencian model berhasil mencapai F1-Score 0.892 di skenario 3 dengan kelipatan bahasa Inggris 1.
 
-    % \subsection{Analisis hasil}
+        \begin{figure}[ht]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{resources/plot-full-toxic-xlmr.png}
+                \caption{Plot Ujaran kebencian model XLM-R.}\label{fig:plot_full_toxic_xlmr}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{resources/plot-full-trip-advisor-xlmr-duplicate.png}
+                \caption{Plot dataset A model XLM-R duplikat dihilangkan}\label{fig:plot_fuLL_trip_duplicate}
+            \endminipage
+        \end{figure}
+        Melalui sedikit eksperimen dengan model XLM-R, dapat dilihat performa model XLM-R sangat bagus. Pada analisis sentimen dataset B model berhasil memprediksi seluruh data tes dengan sempurna di skenario 3 dengan kelipatan bahasa Inggris 1.5. Pada klasifikasi ujaran kebencian model berhasil mencapai F1-Score 0.892 di skenario 3 dengan kelipatan bahasa Inggris 1. 
+
+        Meski begitu, pada analisis sentimen dataset A, model yang dilatih dengan bahasa Indonesia dan campuran memiliki performa yang jauh lebih jelek dibanding model yang dilatih dengan bahasa Inggris saja. Selain itu, hasil fine-tune penuh klasifikasi ujaran kebencian tidak dapat dibandingkan dengan penelitian sebelumnya secara langsung. Dua hal ini akan dibahas pada bab selanjutnya
+
+\subsection{Analisis hasil}
+    Sub bab ini akan membahas lebih detail hasil yang didapatkan pada bab sebelumnya
+
+    \subsection{Hasil fine-tune penuh klasifikasi ujaran kebencian}
+    Untuk dapat membandingkan secara langsung penggunaan \textit{multilingual language model}, pelatihan dengan konfigurasi yang sama dengan skenario 2 penelitian \parencite{Ibrohim_Budi_2019} dilakukan. Hasilnya dapat dilihat pada Tabel \ref{tab:toxic_xlm_r_comparable}.
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|r|l|l|l|}
+        \hline
+        \multicolumn{1}{|l|}{} & \textbf{Hate Speech} & \textbf{Abusive} & \textbf{Average}      \\ \hline
+        \textbf{Accuracy}      & 85.573273\%          & 93.470008\%      & \textbf{89.5216405\%} \\ \hline
+        \textbf{F1}            & 0.85331737           & 0.93094791       & \textbf{0.89213264}   \\ \hline
+        \end{tabular}
+        \caption{Hasil fine-tune penuh klasifikasi ujaran kebencian \textit{comparable}.}
+        \label{tab:toxic_xlm_r_comparable}
+    \end{table}
+
+    \subsection{Hasil fine-tune penuh analisis sentimen data A}
+    Setelah ditelusuri, ternyata dataset A memiliki 2573 teks duplikat. Sehingga, dari total 12389 data teks, hanya 9816 teks yang unik. Hal ini menyebabkan \textit{language model} overfit kepada data ini dan tidak mempelajari permasalahan secara sepenuhnya. Eksperimen fine-tune penuh analisis sentimen data A dijalankan kembali pada dataset yang dihilangkan teks duplikatnya. Hasilnya dapat dilihat pada Gambar \ref{fig:plot_fuLL_trip_duplicate}
+
+    
+
+
+
+    
         

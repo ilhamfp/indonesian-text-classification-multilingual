@@ -1,6 +1,6 @@
 \chapter{Studi Literatur}
 
-Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan representasi teks lintas bahasa mulai dari teknik-teknik terdahulu hingga yang terbaru menggunakan \textit{language model pretraining} lintas bahasa. 
+Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representasi teks lintas bahasa mulai dari teknik-teknik terdahulu hingga yang terbaru, \textit{language model}, dan detail mengenai \textit{multilingual language model} mBERT dan XLM-R yang akan digunakan. 
 
 \section{Representasi Teks Lintas Bahasa}
     Salah satu bentuk dari Transfer Learning adalah pembelajaran lintas bahasa \parencite{ruder2019transfer}. Pada pembelajaran lintas bahasa, pembelajaran pertama-tama dilakukan di bahasa lain yang lebih populer dan kemudian digunakan pada bahasa lain yang lebih tidak populer. Untuk dapat melakukan hal ini, diperlukan representasi bahasa pada ruang yang sama seperti dapat dilihat pada ilustrasi di gambar \ref{fig:ilustrasi_embedding}.
@@ -71,11 +71,11 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
 
     Meski \textit{monolingual mapping} sukses mendapatkan ruang \textit{embedding} antar bahasa, teknik ini mahal dan susah diaplikasikan ke bahasa yang memiliki sumber daya rendah. Untuk dapat mengaplikasikan teknik ini diperlukan kamus kata-kata atau kalimat paralel antar bahasa, hal yang seringkali tidak tersedia pada bahasa bersumber daya rendah. Oleh karena itu, mengaplikasikan teknik ini sangat sulit pada bahasa Indonesia. 
 
-    Kemajuan terbaru datang dari teknik \textit{joint optimization}. Teknik \textit{joint optimization} yang sebelumnya memerlukan korpus paralel atau kamus bilingual (\textit{supervised}) \parencite{Xing_Wang_Liu_Lin}, kini dapat dilakukan tanpa korpus paralel atau kamus bilingual (\textit{unsupervised}) \parencite{LampleConneau2019}. Hal ini dilakukan dengan memanfaatkan \textit{shared sub-word vocabulary}. Tidak hanya itu, \parencite{LampleConneau2019} juga memanfaatkan \textit{masked language modeling} dan arsitektur \textit{transformer} untuk mendapatkan \textit{language model} yang mangkus. Sub-bab selanjutnya akan membahas detail \textit{shared sub-word vocabulary}, \textit{masked language modeling}, dan arsitektur \textit{transformer} dari \textit{language model pretraining} lintas bahasa bernama XLM yang dikembangkan oleh \parencite{LampleConneau2019}.
+    Kemajuan terbaru datang dari teknik \textit{joint optimization}. Teknik \textit{joint optimization} yang sebelumnya memerlukan korpus paralel atau kamus bilingual (\textit{supervised}) \parencite{Xing_Wang_Liu_Lin}, kini dapat dilakukan tanpa korpus paralel atau kamus bilingual (\textit{unsupervised}) \parencite{Devlin_Chang_Lee_Toutanova_2019} \parencite{LampleConneau2019}. 
 
 % \section{ \textit{Language Model Pretraining} Lintas Bahasa}
-\section{Language Model Pretraining Lintas Bahasa}
-    Seperti yang dijelaskan sebelumnya, penelitian \parencite{LampleConneau2019} mendemonstrasikan pembangunan \textit{language model pretraining} lintas bahasa yang dilakukan tanpa memerlukan korpus paralel atau kamus bilingual. Bab ini akan menjelaskan bagian-bagian dari \textit{language model} yang diberi nama XLM ini yaitu \textit{shared sub-word vocabulary}, \textit{masked language modeling}, arsitektur \textit{transformer}, dan teknik \textit{pretraining}.
+\section{Language Model}
+    Kemajuan dalam representasi teks teranyar datang dari konsel \textit{language model}. Bab ini akan menjelaskan bagian-bagian utama yang menjadi dasar dari \textit{language model} yang akan digunakan. Hal ini adalah arsitektur \textit{transformer}, \textit{masked language modeling}, dan teknik \textit{pretraining}.
 
     \subsection{Arsitektur Transformer}
 
@@ -107,8 +107,45 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
 
     Pada model XLM yang akan digunakan di tugas akhir ini, digunakan model dengan 12-\textit{layer Transformer}. Arsitektur model ini sama dengan arsitektur model yang digunakan \parencite{LampleConneau2019} untuk melakukan klasifikasi pada data tolak ukur XNLI.
 
+    \subsection{Masked Language Modeling (MLM)}
+    Dideskripsikan pertama kali pada penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak akan menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan pelatihan \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1\textwidth]{resources/ilustrasi-mlm.png}
+        \caption{Ilustrasi \textit{masked language modeling} \parencite{LampleConneau2019}.}
+        \label{fig:ilustrasi_mlm}
+    \end{figure}
+
+    Sama dengan BERT, persentase dari kata yang akan dipilih untuk disembunyikan pada XLM adalah 15 persen. Setelah sebuah posisi dipilih secara acak, sebuah kata kemudian memiliki 80 persen kemungkinan untuk disembunyikan, 10 persen kemungkinan untuk diganti menjadi sebuah kata acak, dan 10 persen kemungkinan tidak diganti sama sekali.
+
+    \subsection{Teknik Pretraining}
+    Model BERT dan XLM merupakan perkembangan dari penelitian oleh \parencite{radford2018improving} dan \parencite{HowardRuder2018} yang meneliti \textit{language modeling} untuk melakukan \textit{pretraining Transformer encoder}. Penelitian-penelitian tersebut sukses membuktikan mangkusnya teknik ini dengan meraih kenaikan performa yang tinggi pada dataset tolak ukur GLUE \parencite{GLUE2019}.
+
+    Teknik \textit{language model pretraining} sukses dikarenakan kemampuannya untuk memanfaatkan data-data teks yang ada dari berbagai sumber tanpa perlu melakukan pelabelan \textit{(unsupervised)}. Pada salah satu model XLM, \textit{pretraining} dilakukan pada data Wikipedia dari 100 bahasa. Melalui pembelajaran dari Wikipedia 100 bahasa ini XLM berhasil mempelajari representasi teks berbagai bahasa.
+
+\section{Multilingual BERT}
+    Multilingual BERT adalah salah satu model yang penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019} rilis. Model ini pada dasarnya memiliki arsitektur sama dengan varian BERT-Base yang terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 110 juta parameter. Hanya saja model ini tidak dilatih dengan data dari BooksCorpus (800 juta kata) dan Wikipedia bahasa Inggris (2,5 miliar kata). Melainkan, model ini dilatih dengan data Wikipedia dari lebih 104 bahasa.
+    
+    Meski tidak didesain secara eksplisit untuk memiliki representasi antar bahasa, penelitian \parencite{Pires_Schlinger_Garrette_2019} menunjukan bahwa Multilingual BERT memiliki kemampuan generalisasi antar bahasa yang sangat baik. Pada penelitiannya, \parencite{Pires_Schlinger_Garrette_2019} mendemonstrasikan kemampuan Multilingual BERT pada berbagai permasalahan dan menyiratkan terdapatnya informasi linguistik yang berguna antar bahasa  pada representasi di dalam Multilingual BERT
+  
+\section{XLM-RoBERTa}
+    Meski Multilingual BERT memiliki kemampuan generalisasi antar bahasa, masih terdapat banyak kekurangan yang menghambat kemampuan generalisasi ini maju.
+    Penelitian berjudul "RoBERTa: Pendekatan Pretraining BERT yang Lebih Optimal" oleh \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} menunjukkan bahwa teknik pelatihan dan beberapa pilihan desain dalam pemodelan BERT tidak optimal. Lalu dalam pembangunannya BERT juga tidak didesain dan dioptimisasi secara khusus untuk dapat generalisasi antar bahasa, hal yang \parencite{Conneau_XLMR} teliti dan perbaiki. Sub bab selanjutnya akan membahas beberapa hal tersebut dengan lebih detail.
+
+    \subsection{Desain BERT: Next Sentence Prediction dan Static Masking}
+    Penelitian \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} mengevaluasi kembali dua desain kunci pada pelatihan BERT yaitu fungsi \textit{loss Next Sentence Prediction} dan cara \textit masking pada MLM. Dari hasil evaluasi, diketahui bahwa \textit{Next Sentence Prediction} tidak terlalu membantu dan \textit{Dynamic Masking} lebih baik dibanding \textit{Static Masking}
+ 
+    \subsection{Data}
+    XLM-R Dilatih dengan data yang lebih banyak dan lebih beragam. Dapat dilihat pada \ref{fig:data_xlm_r} Jumlah data dalam GiB (skala log) untuk 88 bahasa yang muncul di Wiki-100 corpus yang digunakan untuk mBERT, dan CC-100 yang digunakan untuk XLM-R. CC-100 meningkatkan jumlah data secara signifikan, khususnya untuk bahasa sumber daya rendah.
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=1\textwidth]{resources/data_xlm_r.png}
+        \caption{Perbedaan data mBERT (Wikipedia) dengan XLM-R (CC) \parencite{Conneau_XLMR}}
+        \label{fig:data_xlm_r}
+    \end{figure}
+
     \subsection{Shared sub-word vocabulary}
-    % \subsection{\textit{Shared sub-word vocabulary}}
     Berdasarkan penelitian oleh \parencite{Sennrich_Haddow_Birch_2016}, salah satu inspirasi menggunakan \textit{sub-word} adalah fakta bahwa terjemahan beberapa kata bersifat transparan karena terjemahannya dapat diterjemahkan oleh penerjemah yang kompeten, bahkan jika itu adalah kata yang belum pernah ditemui, berdasarkan terjemahan dari \textit{sub-word} yang dikenal seperti morfemnya atau fonemnya. Kategori kata yang terjemahannya berpotensi transparan meliputi:
 
     \begin{enumerate}
@@ -138,25 +175,9 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, dan perkembangan repres
 
     Dapat dilihat contoh sederhana algoritma \textit{Byte Pair Encoding} pada Lampiran \ref{appendix:simple_bpe_algorithm} oleh \parencite{Sennrich_Haddow_Birch_2016}. Pada algoritma ini, operasi \textit{Byte Pair Encoding} belajar dari kamus kata {‘low’, ‘lower’, ‘newest’, ‘widest’}. Pada akhir iterasi, akan diperoleh representasi dari kamus kata dalam bentuk simbol-simbol yang dipelajari. Pada contoh tersebut, kata 'lowest' yang berada diluar kamus kata akan direpresentasikan menjadi gabungan dari simbol 'low' dan 'est'. Di sini dapat dilihat bagaimana \textit{Byte Pair Encoding} dapat membantu merepresentasikan kata yang berada diluar kamus kata. 
 
-    \subsection{Masked Language Modeling (MLM)}
-    Dideskripsikan pada penelitian oleh \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak akan menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan pelatihan \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
-
-    \begin{figure}[ht]
-        \centering
-        \includegraphics[width=1\textwidth]{resources/ilustrasi-mlm.png}
-        \caption{Ilustrasi \textit{masked language modeling} \parencite{LampleConneau2019}.}
-        \label{fig:ilustrasi_mlm}
-    \end{figure}
-
-    Sama dengan BERT, persentase dari kata yang akan dipilih untuk disembunyikan pada XLM adalah 15 persen. Setelah sebuah posisi dipilih secara acak, sebuah kata kemudian memiliki 80 persen kemungkinan untuk disembunyikan, 10 persen kemungkinan untuk diganti menjadi sebuah kata acak, dan 10 persen kemungkinan tidak diganti sama sekali.
-
-    \subsection{Teknik Pretraining}
-    Model XLM ini merupakan perkembangan dari penelitian oleh \parencite{radford2018improving}; \parencite{HowardRuder2018}; dan \parencite{Devlin_Chang_Lee_Toutanova_2019}; yang meneliti \textit{language modeling} untuk melakukan \textit{pretraining Transformer encoder}. Penelitian-penelitian tersebut sukses membuktikan mangkusnya teknik ini dengan meraih kenaikan performa yang tinggi pada dataset tolak ukur GLUE \parencite{GLUE2019}.
-
-    Teknik \textit{language model pretraining} sukses dikarenakan kemampuannya untuk memanfaatkan data-data teks yang ada dari berbagai sumber tanpa perlu melakukan pelabelan \textit{(unsupervised)}. Pada salah satu model XLM, \textit{pretraining} dilakukan pada data Wikipedia dari 100 bahasa. Melalui pembelajaran dari Wikipedia 100 bahasa ini XLM berhasil mempelajari representasi teks berbagai bahasa.
-
 \section{Metrik Evaluasi}
-Permasalahan klasifikasi konten negatif di internet merupakan permasalahan yang memiliki kelas tidak seimbang. Dalam permasalahan seperti ini, metrik accuracy dapat menyesatkan dan mengakibatkan paradoks akurasi \parencite{Zhu_Davidson_2007}. Untuk mengevaluasi performa dari analisis sentimen yang dilakukan pada bahasa Indonesia, digunakan \textit{f1-score}. \textit{f1-score} adalah rata-rata harmonis antara precision dan recall. Berikut definisi dari \textit{precision} (II.1),  \textit{recall} (II.2),  \textit{f1-score} (II.3)  secara matematis:
+% Permasalahan klasifikasi konten negatif di internet merupakan permasalahan yang memiliki kelas tidak seimbang. Dalam permasalahan seperti ini, metrik accuracy dapat menyesatkan dan mengakibatkan paradoks akurasi \parencite{Zhu_Davidson_2007}. 
+Metrik yang digunakan mengacu pada penelitian terkait sebelumnya agar dapat dibandingkan. Untuk mengevaluasi performa klasifikasi ujaran kebencian, digunakan akurasi. Sedangkan untuk mengevaluasi performa dari analisis sentimen yang dilakukan pada bahasa Indonesia, digunakan \textit{f1-score}. \textit{f1-score} adalah rata-rata harmonis antara precision dan recall. Berikut definisi dari \textit{precision} (II.1),  \textit{recall} (II.2),  \textit{f1-score} (II.3)  secara matematis:
 \begin{equation}
     precision=\frac{True Positive}{True Positive + False Positive}
 \end{equation}
