@@ -1,6 +1,6 @@
 \chapter{Studi Literatur}
 
-Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representasi teks lintas bahasa mulai dari teknik-teknik terdahulu hingga yang terbaru, \textit{language model}, dan detail mengenai \textit{multilingual language model} mBERT dan XLM-R yang akan digunakan. 
+Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representasi teks lintas bahasa mulai dari teknik-teknik terdahulu hingga yang terbaru, \textit{language model}, dan detail mengenai \textit{multilingual language model} MutlilingualBERT \& XLM-R yang digunakan. 
 
 \section{Representasi Teks Lintas Bahasa}
     Salah satu bentuk dari Transfer Learning adalah pembelajaran lintas bahasa \parencite{ruder2019transfer}. Pada pembelajaran lintas bahasa, pembelajaran pertama-tama dilakukan di bahasa lain yang lebih populer dan kemudian digunakan pada bahasa lain yang lebih tidak populer. Untuk dapat melakukan hal ini, diperlukan representasi bahasa pada ruang yang sama seperti dapat dilihat pada ilustrasi di gambar \ref{fig:ilustrasi_embedding}.
@@ -8,11 +8,11 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
     \begin{figure}[ht]
         \centering
         \includegraphics[width=1\textwidth]{resources/luong_et_al_2015.jpg}
-        \caption{Ilustrasi ruang \textit{embedding} antara dua bahasa \parencite{Luong_Pham_Manning_2015}}
+        \caption{Ilustrasi ruang \textit{embedding} antara dua bahasa \parencite{Luong_Pham_Manning_2015}} 
         \label{fig:ilustrasi_embedding}
     \end{figure}
 
-    Sebelumnya, diperlukan ahli untuk membangun kamus kata-kata dan kalimat secara manual untuk dapat membandingkan kata dari dua bahsa. Seiring dengan perkembangan teknologi, berbagai teknik berkembang untuk dapat melakukan hal ini secara otomatis. Berdasarkan \parencite{Wang_Xie_Xu_Yang_Neubig_Carbonell_2019}, secara garis besar terdapat 2 pendekatan berbeda dalam membangun ruang \textit{embedding} antar bahasa:
+    Sebelumnya, diperlukan ahli untuk membangun kamus kata-kata dan kalimat secara manual untuk dapat membandingkan kata dari dua bahasa. Seiring dengan perkembangan teknologi, berbagai teknik berkembang untuk dapat melakukan hal ini secara otomatis. Berdasarkan \parencite{Wang_Xie_Xu_Yang_Neubig_Carbonell_2019}, secara garis besar terdapat 2 pendekatan berbeda dalam membangun ruang \textit{embedding} antar bahasa:
 
     \begin{enumerate}
         \item \textit{Monolingual mapping}: Pada teknik ini, model dilatih secara independen pada bahasa masing-masing. Kemudian mapping antara bahasa dipelajari untuk mendapatkan representasi antar bahasa.
@@ -58,7 +58,7 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
         \label{fig:ilustrasi_embedding_inggris_spanyol}
     \end{figure}
 
-    Dikarenakan miripnya representasi bahasa, jika translasi beberapa objek diketahui, contoh angka satu sampai lima, representasi antar bahasa dapat disesuaikan dengan rotasi, \textit{scaling}, dan translasi untuk mendapatkan tranlasi angka lainnya. Lebih formalnya, misalkan diberi satu set pasangan kata dan representasi vektor yang terkait \begin{math} \begin{Bmatrix} {x_{i}, z_{i}} \end{Bmatrix}_{i=1}^{n} \end{math}, di mana \(x_{i}\in\mathbb{R}^{d_{1}}\) adalah representasi terdistribusi dari kata i dalam bahasa sumber, dan \(z_{i}\in\mathbb{R}^{d_{2}}\) adalah representasi vektor dari terjemahannya. Kemudian dicari matriks transformasi \( W\) sehingga \(W x_{i}\) mendekati \(z_{i}\). Dalam praktiknya, \(W\) dapat dipelajari dengan masalah optimasi berikut
+    Dikarenakan miripnya representasi bahasa, jika translasi beberapa objek diketahui, contoh angka satu sampai lima, representasi antar bahasa dapat disesuaikan dengan rotasi, \textit{scaling}, dan translasi untuk mendapatkan translasi angka lainnya. Lebih formalnya, misalkan diberi satu set pasangan kata dan representasi vektor yang terkait \begin{math} \begin{Bmatrix} {x_{i}, z_{i}} \end{Bmatrix}_{i=1}^{n} \end{math}, di mana \(x_{i}\in\mathbb{R}^{d_{1}}\) adalah representasi terdistribusi dari kata i dalam bahasa sumber, dan \(z_{i}\in\mathbb{R}^{d_{2}}\) adalah representasi vektor dari terjemahannya. Kemudian dicari matriks transformasi \( W\) sehingga \(W x_{i}\) mendekati \(z_{i}\). Dalam praktiknya, \(W\) dapat dipelajari dengan masalah optimasi berikut
 
     \begin{equation}
         \min_{W}\sum_{i=1}^{n}\left \| Wx_i-z_i \right \|^2
@@ -73,9 +73,9 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
 
     Kemajuan terbaru datang dari teknik \textit{joint optimization}. Teknik \textit{joint optimization} yang sebelumnya memerlukan korpus paralel atau kamus bilingual (\textit{supervised}) \parencite{Xing_Wang_Liu_Lin}, kini dapat dilakukan tanpa korpus paralel atau kamus bilingual (\textit{unsupervised}) \parencite{Devlin_Chang_Lee_Toutanova_2019} \parencite{LampleConneau2019}. 
 
-% \section{ \textit{Language Model Pretraining} Lintas Bahasa}
+% \section{ \textit{Language Model Pretraining} Lintas bahasa}
 \section{Language Model}
-    Kemajuan dalam representasi teks teranyar datang dari konsel \textit{language model}. Bab ini akan menjelaskan bagian-bagian utama yang menjadi dasar dari \textit{language model} yang akan digunakan. Hal ini adalah arsitektur \textit{transformer}, \textit{masked language modeling}, dan teknik \textit{pretraining}.
+    Kemajuan dalam representasi teks teranyar datang dari konsep \textit{language model}. Bab ini menjelaskan bagian-bagian utama yang menjadi dasar dari \textit{language model} yang digunakan. Hal ini adalah  arsitektur \textit{transformer}, \textit{masked language modeling}, dan teknik \textit{pretraining}.
 
     \subsection{Arsitektur Transformer}
 
@@ -105,10 +105,10 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
         Attention(Q,K,V) = softmax(\frac{QK^{T}}{\sqrt{d_k}})V
     \end{equation}
 
-    Pada model XLM yang akan digunakan di tugas akhir ini, digunakan model dengan 12-\textit{layer Transformer}. Arsitektur model ini sama dengan arsitektur model yang digunakan \parencite{LampleConneau2019} untuk melakukan klasifikasi pada data tolak ukur XNLI.
+    Pada model MultilingualBERT dan XLM-R yang digunakan di tugas akhir ini, arsitektur Transformer menjadi kunci utama desain model. Model MultilingualBERT terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 110 juta parameter. Lalu, model XLM-R Base terdiri dari terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 270 juta parameter. Terakhir, model XLM-R Large terdiri dari terdiri dari 24 blok layer Transformer, 1024 \textit{hidden size}, 16 \textit{self-attention heads}, dan total 550 juta parameter.
 
     \subsection{Masked Language Modeling (MLM)}
-    Dideskripsikan pertama kali pada penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak akan menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan pelatihan \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_transformer}.
+    Dideskripsikan pertama kali pada penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019}, \textit{Masked Language Modeling} terinspirasi dari \textit{Cloze task} \parencite{Taylor_1953}. Teknik MLM secara acak menyembunyikan beberapa kata dari input, dan model memiliki objektif untuk menebak kata asli dari kata yang disembunyikan tadi berdasarkan konteks yang ada di sekelilingnya. Tidak seperti pelatihan \textit{language model} lainnya yang berjalan dari kiri-ke-kanan, pelatihan dengan objektif MLM memungkinkan representasi dari kiri dan kanan mengambil peran. Hal ini memungkinkan pelatihan \textit{Transformer} secara dua arah. Ilustrasi dari \textit{masked language modeling} secara keseluruhan dapat dilihat pada Gambar \ref{fig:ilustrasi_mlm}.
 
     \begin{figure}[ht]
         \centering
@@ -117,33 +117,72 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
         \label{fig:ilustrasi_mlm}
     \end{figure}
 
-    Sama dengan BERT, persentase dari kata yang akan dipilih untuk disembunyikan pada XLM adalah 15 persen. Setelah sebuah posisi dipilih secara acak, sebuah kata kemudian memiliki 80 persen kemungkinan untuk disembunyikan, 10 persen kemungkinan untuk diganti menjadi sebuah kata acak, dan 10 persen kemungkinan tidak diganti sama sekali.
+    Sama dengan BERT, persentase dari kata yang dipilih untuk disembunyikan pada XLM adalah 15 persen. Setelah sebuah posisi dipilih secara acak, sebuah kata kemudian memiliki 80 persen kemungkinan untuk disembunyikan, 10 persen kemungkinan untuk diganti menjadi sebuah kata acak, dan 10 persen kemungkinan tidak diganti sama sekali.
 
     \subsection{Teknik Pretraining}
     Model BERT dan XLM merupakan perkembangan dari penelitian oleh \parencite{radford2018improving} dan \parencite{HowardRuder2018} yang meneliti \textit{language modeling} untuk melakukan \textit{pretraining Transformer encoder}. Penelitian-penelitian tersebut sukses membuktikan mangkusnya teknik ini dengan meraih kenaikan performa yang tinggi pada dataset tolak ukur GLUE \parencite{GLUE2019}.
 
     Teknik \textit{language model pretraining} sukses dikarenakan kemampuannya untuk memanfaatkan data-data teks yang ada dari berbagai sumber tanpa perlu melakukan pelabelan \textit{(unsupervised)}. Pada salah satu model XLM, \textit{pretraining} dilakukan pada data Wikipedia dari 100 bahasa. Melalui pembelajaran dari Wikipedia 100 bahasa ini XLM berhasil mempelajari representasi teks berbagai bahasa.
 
-\section{Multilingual BERT}
-    Multilingual BERT adalah salah satu model yang penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019} rilis. Model ini pada dasarnya memiliki arsitektur sama dengan varian BERT-Base yang terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 110 juta parameter. Hanya saja model ini tidak dilatih dengan data dari BooksCorpus (800 juta kata) dan Wikipedia bahasa Inggris (2,5 miliar kata). Melainkan, model ini dilatih dengan data Wikipedia dari lebih 104 bahasa.
+\section{MultilingualBERT}
+    MultilingualBERT adalah salah satu model yang penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019} rilis. Model ini pada dasarnya memiliki arsitektur sama dengan varian BERT-Base yang terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 110 juta parameter. Hanya saja model ini tidak dilatih dengan data dari BooksCorpus (800 juta kata) dan Wikipedia bahasa Inggris (2,5 miliar kata). Melainkan, model ini dilatih dengan data Wikipedia dari lebih 104 bahasa.
     
-    Meski tidak didesain secara eksplisit untuk memiliki representasi antar bahasa, penelitian \parencite{Pires_Schlinger_Garrette_2019} menunjukan bahwa Multilingual BERT memiliki kemampuan generalisasi antar bahasa yang sangat baik. Pada penelitiannya, \parencite{Pires_Schlinger_Garrette_2019} mendemonstrasikan kemampuan Multilingual BERT pada berbagai permasalahan dan menyiratkan terdapatnya informasi linguistik yang berguna antar bahasa  pada representasi di dalam Multilingual BERT
-  
-\section{XLM-RoBERTa}
-    Meski Multilingual BERT memiliki kemampuan generalisasi antar bahasa, masih terdapat banyak kekurangan yang menghambat kemampuan generalisasi ini maju.
-    Penelitian berjudul "RoBERTa: Pendekatan Pretraining BERT yang Lebih Optimal" oleh \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} menunjukkan bahwa teknik pelatihan dan beberapa pilihan desain dalam pemodelan BERT tidak optimal. Lalu dalam pembangunannya BERT juga tidak didesain dan dioptimisasi secara khusus untuk dapat generalisasi antar bahasa, hal yang \parencite{Conneau_XLMR} teliti dan perbaiki. Sub bab selanjutnya akan membahas beberapa hal tersebut dengan lebih detail.
+    Meski tidak didesain secara eksplisit untuk memiliki representasi antar bahasa, penelitian \parencite{Pires_Schlinger_Garrette_2019} menunjukkan bahwa MultilingualBERT memiliki kemampuan generalisasi antar bahasa yang sangat baik. Pada penelitiannya, \parencite{Pires_Schlinger_Garrette_2019} mendemonstrasikan kemampuan MultilingualBERT pada berbagai permasalahan dan menyiratkan terdapatnya informasi linguistik yang berguna antar bahasa  pada representasi di dalam MultilingualBERT
 
-    \subsection{Desain BERT: Next Sentence Prediction dan Static Masking}
-    Penelitian \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} mengevaluasi kembali dua desain kunci pada pelatihan BERT yaitu fungsi \textit{loss Next Sentence Prediction} dan cara \textit masking pada MLM. Dari hasil evaluasi, diketahui bahwa \textit{Next Sentence Prediction} tidak terlalu membantu dan \textit{Dynamic Masking} lebih baik dibanding \textit{Static Masking}
- 
-    \subsection{Data}
+\section{XLM-RoBERTa}
+    XLM-RoBERTa adalah model yang dirilis dari hasil penelitian \parencite{Conneau_XLMR}. Penelitian ini mengembangkan hasil penelitian \parencite{LampleConneau2019} dengan data lebih banyak, data yang lebih beragam, dan teknik pelatihan yang lebih optimal. Model yang dirilis memiliki dua varian, XLM-R Base dan XLM-R Large. Model XLM-R Base terdiri dari terdiri dari 12 blok layer Transformer, 768 \textit{hidden size}, 12 \textit{self-attention heads}, dan total 270 juta parameter. Terakhir, model XLM-R Large terdiri dari terdiri dari 24 blok layer Transformer, 1024 \textit{hidden size}, 16 \textit{self-attention heads}, dan total 550 juta parameter. 
+
+    Meski MultilingualBERT memiliki kemampuan generalisasi antar bahasa, masih terdapat banyak kekurangan yang menghambat kemampuan generalisasi ini maju.
+    Penelitian berjudul "RoBERTa: Pendekatan Pretraining BERT yang Lebih Optimal" oleh \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} menunjukkan bahwa teknik pelatihan dan beberapa pilihan desain dalam pemodelan BERT tidak optimal. Lalu dalam pembangunannya BERT juga tidak didesain dan dioptimisasi secara khusus untuk dapat generalisasi antar bahasa, hal yang \parencite{Conneau_XLMR} teliti dan perbaiki. Subbab selanjutnya membahas beberapa hal tersebut dengan lebih detail.
+
+
+    \begin{table}[tb]
+        \centering
+        \caption{Rangkuman perbandingan objektif pelatihan \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} }
+        \begin{tabular}{|l|l|l|l|l|}
+            \hline
+            \textbf{Model} & \textbf{SQuAD 1.1/2.0} & \textbf{MNLI-m} & \textbf{SST-2} & \textbf{RACE} \\ \hline
+            \multicolumn{5}{|l|}{\textit{Dengan NSP Loss:}}                                            \\ \hline
+            SEGMENT-PAIR   & 90.4/78.7              & 84.0            & \textbf{92.9}  & 64.2          \\ \hline
+            SENTENCE-PAIR  & 88.7/76.2              & 82.9            & 92.1           & 63.0          \\ \hline
+            \multicolumn{5}{|l|}{\textit{Tanpa NSP Loss:}}                                             \\ \hline
+            FULL-SENTENCES & 90.4/79.1              & \textbf{84.7}   & 92.5           & 64.8          \\ \hline
+            DOC-SENTENCES  & \textbf{90.6/79.7}     & \textbf{84.7}   & 92.7           & \textbf{65.6} \\ \hline
+        \end{tabular}
+        \label{tab:rangkuman_roberta_1}
+    \end{table}
+
+    \subsection{Perubahan dari Desain BERT: Next Sentence Prediction dan Static Masking}
+    Penelitian \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} mengevaluasi kembali desain kunci pada pelatihan BERT. BERT memiliki dua objektif pelatihan, \textit{Masked Language Model (MLM)} dan \textit{Next Sentence Prediction (NSP)}. Sedangkan pada cara \textit{masking} data untuk MLM, data di-\textit{mask} secara static. Berarti selama pelatihan, teks yang di-\textit{mask} hanya itu saja dan tidak berubah. Dua Desain kunci ini adalah beberapa hal yang dievaluasi oleh \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019}.
+
+    Pada objektif pelatihan, \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} membandingkan dengan cermat penggunaan objektif NSP pada berbagai tipe cara memasukkan data kedalam pelatihan model. Hasil perbandingan menunjukkan bahwa penghilangan objektif NSP berefek bagus atau sama saja pada performa model. Rangkuman hasil perbandingan dapat dilihat pada Tabel \ref{tab:rangkuman_roberta_1}.
+
+    \begin{table}[b]
+        \centering
+        \caption{Rangkuman perbandingan teknik \textit{masking} \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} }
+        \begin{tabular}{lccc}
+            \hline
+            \textbf{Masking} & \textbf{SQuAD 1.1/2.0} & \textbf{MNLI-m} & \textbf{SST-2} \\ \hline
+            \textit{static}  & 78.3                   & \textbf{84.3}   & 92.5           \\
+            \textit{dynamic} & \textbf{78.7}          & 84.0            & \textbf{92.9}  \\ \hline
+        \end{tabular}
+        \label{tab:rangkuman_roberta_2}
+    \end{table}
+
+    Pada cara \textit{masking} data untuk MLM, \parencite{Liu_Ott_Goyal_Du_Joshi_Chen_Levy_Lewis_Zettlemoyer_Stoyanov_2019} membandingkan dengan cermat efek dari melakukan \textit{masking} hanya sekali pada seluruh data pelatihan (\textit{static}) dengan melakukan \textit{masking} tiap kali data diproses oleh model (\textit{dynamic}). Hasil perbandingan menunjukkan bahwa teknik \textit{masking} \textit{dynamic} dalam sebagian besar kasus lebih baik dibandingkan \textit{static}. Dengan begitu, menimbang lebih efisiennya teknik \textit{dynamic}, ditetapkan bahwa teknik \textit{dynamic} lebih bagus. Rangkuman hasil perbandingan dapat dilihat pada Tabel \ref{tab:rangkuman_roberta_2}.
+
+    \subsection{Penambahan dan Penyeimbangan Data}
     XLM-R Dilatih dengan data yang lebih banyak dan lebih beragam. Dapat dilihat pada \ref{fig:data_xlm_r} Jumlah data dalam GiB (skala log) untuk 88 bahasa yang muncul di Wiki-100 corpus yang digunakan untuk mBERT, dan CC-100 yang digunakan untuk XLM-R. CC-100 meningkatkan jumlah data secara signifikan, khususnya untuk bahasa sumber daya rendah.
+
     \begin{figure}[ht]
         \centering
         \includegraphics[width=1\textwidth]{resources/data_xlm_r.png}
         \caption{Perbedaan data mBERT (Wikipedia) dengan XLM-R (CC) \parencite{Conneau_XLMR}}
         \label{fig:data_xlm_r}
     \end{figure}
+
+    Penambahan data dan penyeimbangan persentasenya ini terbukti meningkatkan performa model dalam berbagai permasalahan klasifikasi, terutama di bahasa yang sebelumnya memiliki lebih sedikit data. Hal ini dibuktikan dari performa model pada tolak ukur XNLI. Model XLM-R Large berhasil mendapatkan performa terbaik dalam seluruh bahasa tolak ukur XNLI. Bahkan meningkat jauh dari penelitian \parencite{LampleConneau2019} sebelumnya. Peningkatan paling nampak pada bahasa yang memiliki sumber daya sedikit.
+
 
     \subsection{Shared sub-word vocabulary}
     Berdasarkan penelitian oleh \parencite{Sennrich_Haddow_Birch_2016}, salah satu inspirasi menggunakan \textit{sub-word} adalah fakta bahwa terjemahan beberapa kata bersifat transparan karena terjemahannya dapat diterjemahkan oleh penerjemah yang kompeten, bahkan jika itu adalah kata yang belum pernah ditemui, berdasarkan terjemahan dari \textit{sub-word} yang dikenal seperti morfemnya atau fonemnya. Kategori kata yang terjemahannya berpotensi transparan meliputi:
@@ -173,22 +212,31 @@ Bab ini menjelaskan metrik evaluasi, penelitian terkait, perkembangan representa
 
     Pertama-tama, kosakata simbol diinisialisasi dengan kosakata karakter, dan mewakili setiap kata sebagai urutan karakter, ditambah simbol akhir kata khusus ‘·’, yang memungkinkan hasil terjemahan dikembalikan ke bentuk awal setelah terjemahan. Kemudian semua pasangan simbol dihitung secara iteratif dan untuk setiap pasangan yang paling sering diganti dengan simbol baru. Contoh ('A', 'B') menjadi 'AB'. Setiap operasi penggabungan menghasilkan simbol baru yang mewakili \textit{n-gram} dari karakter. Karakter yang sering muncul (atau seluruh kata) pada akhirnya digabungkan menjadi satu simbol. Ukuran kosa kata simbol akhir sama dengan ukuran kosa kata awal, ditambah jumlah operasi penggabungan --- yang merupakan satu-satunya \textit{hyperparameter} dari algoritma.
 
-    Dapat dilihat contoh sederhana algoritma \textit{Byte Pair Encoding} pada Lampiran \ref{appendix:simple_bpe_algorithm} oleh \parencite{Sennrich_Haddow_Birch_2016}. Pada algoritma ini, operasi \textit{Byte Pair Encoding} belajar dari kamus kata {‘low’, ‘lower’, ‘newest’, ‘widest’}. Pada akhir iterasi, akan diperoleh representasi dari kamus kata dalam bentuk simbol-simbol yang dipelajari. Pada contoh tersebut, kata 'lowest' yang berada diluar kamus kata akan direpresentasikan menjadi gabungan dari simbol 'low' dan 'est'. Di sini dapat dilihat bagaimana \textit{Byte Pair Encoding} dapat membantu merepresentasikan kata yang berada diluar kamus kata. 
+    Dapat dilihat contoh sederhana algoritma \textit{Byte Pair Encoding} pada Lampiran \ref{appendix:simple_bpe_algorithm} oleh \parencite{Sennrich_Haddow_Birch_2016}. Pada algoritma ini, operasi \textit{Byte Pair Encoding} belajar dari kamus kata {‘low’, ‘lower’, ‘newest’, ‘widest’}. Pada akhir iterasi, diperoleh representasi dari kamus kata dalam bentuk simbol-simbol yang dipelajari. Pada contoh tersebut, kata 'lowest' yang berada diluar kamus kata direpresentasikan menjadi gabungan dari simbol 'low' dan 'est'. Di sini dapat dilihat bagaimana \textit{Byte Pair Encoding} dapat membantu merepresentasikan kata yang berada diluar kamus kata. 
 
 \section{Metrik Evaluasi}
 % Permasalahan klasifikasi konten negatif di internet merupakan permasalahan yang memiliki kelas tidak seimbang. Dalam permasalahan seperti ini, metrik accuracy dapat menyesatkan dan mengakibatkan paradoks akurasi \parencite{Zhu_Davidson_2007}. 
-Metrik yang digunakan mengacu pada penelitian terkait sebelumnya agar dapat dibandingkan. Untuk mengevaluasi performa klasifikasi ujaran kebencian, digunakan akurasi. Sedangkan untuk mengevaluasi performa dari analisis sentimen yang dilakukan pada bahasa Indonesia, digunakan \textit{f1-score}. \textit{f1-score} adalah rata-rata harmonis antara precision dan recall. Berikut definisi dari \textit{precision} (II.1),  \textit{recall} (II.2),  \textit{f1-score} (II.3)  secara matematis:
+Metrik yang digunakan mengacu pada penelitian terkait sebelumnya agar dapat dibandingkan. Untuk mengevaluasi performa klasifikasi ujaran kebencian, digunakan akurasi. Sedangkan untuk mengevaluasi performa dari analisis sentimen yang dilakukan pada bahasa Indonesia, digunakan \textit{f1-score}. \textit{f1-score} adalah rata-rata harmonis antara \textit{precision} dan \textit{recall}. 
+
+Precision merupakan rasio prediksi benar positif dibandingkan dengan keseluruhan hasil yang diprediksi positif. Precision menjawab pertanyaan " Berapa persen teks yang benar memiliki sentimen positif dari keseluruhan mahasiswa yang diprediksi memiliki sentimen positif". Definisi dari \textit{precision} secara matematis dapat dilihat pada persamaan \ref{eq:precision}.
 \begin{equation}
     precision=\frac{True Positive}{True Positive + False Positive}
-\end{equation}
-\begin{equation}
-    recall=\frac{True Positive}{True Positive + False Negative}
-\end{equation}
-\begin{equation}
-    f1-score=2.\: \frac{precision\: .\: recall}{precision+recall}
+    \label{eq:precision}
 \end{equation}
 
-Dengan pengelompokan prediksi sesuai dengan \textit{confusion matrix} pada tabel \ref{tab:confusion_matrix}.
+Recall merupakan rasio prediksi benar positif dibandingkan dengan keseluruhan data yang benar positif. Recall menjawab pertanyaan "Berapa persen teks yang diprediksi memiliki sentimen positif dibandingkan keseluruhan teks yang sebenarnya memiliki sentimen positif". Definisi dari \textit{recall} secara matematis dapat dilihat pada persamaan \ref{eq:recall}.
+\begin{equation}
+    recall=\frac{True Positive}{True Positive + False Negative}
+    \label{eq:recall}
+\end{equation}
+
+Sehingga terakhir, definisi dari \textit{f1-score} secara matematis dapat dilihat pada persamaan \ref{eq:f1-score}. 
+\begin{equation}
+    f1-score=2.\: \frac{precision\: .\: recall}{precision+recall}
+    \label{eq:f1-score}
+\end{equation}
+
+Dengan pengelompokkan prediksi sesuai dengan \textit{confusion matrix} pada tabel \ref{tab:confusion_matrix}.
 \begin{table}[ht]
     \centering
     \begin{tabular}{@{}cc|cc@{}}
@@ -208,19 +256,20 @@ Dengan pengelompokan prediksi sesuai dengan \textit{confusion matrix} pada tabel
 \end{table}
 
 \section{Penelitian Terkait}
-Sebelumnya telah banyak penelitian terkait baik analisis sentimen maupun pembelajan lintas bahasa. \textbf{Pada penelitian \parencite{FarhanKhodra2017}} yang berjudul “\textit{Sentiment-specific word embedding for Indonesian sentiment analysis}”, berbagai bentuk representasi teks dibandingkan dan dievaluasi menggunakan dataset ulasan TripAdvisor. Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:FarhanKhodra2017}.
+Sebelumnya belum terdapat penelitian, dalam bahasa apapun, yang memanfaatkan dan menganalisa pengaruh penggunaan \textit{multilingual language model} untuk menambah data pelatihan dalam permasalahan analisis sentimen dan klasifikasi ujaran kebencian. Tetapi dalam permasalahan analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia, telah banyak penelitian terkait. Penelitian tersebut adalah \parencite{FarhanKhodra2017}, \parencite{CrisdayantiPurwarianti2019}, dan \parencite{Ibrohim_Budi_2019}. Untuk pemanfaatan \textit{multilingual language model} dalam klasifikasi teks diluar bahasa Indonesia, sudah terdapat penelitian oleh \parencite{LampleConneau2019} dalam permasalahan klasifikasi apakah sebuah pasangan teks berkaitan, kontradiksi, atau netral. 
 
-\begin{table}[]
+\textbf{Pada penelitian \parencite{FarhanKhodra2017}} yang berjudul “\textit{Sentiment-specific word embedding for Indonesian sentiment analysis}”, berbagai bentuk representasi teks dibandingkan dan dievaluasi menggunakan dataset ulasan TripAdvisor. Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:FarhanKhodra2017}.
+\begin{table}[!h]
     \centering
-    \caption{Hasil eksperimen (F1-score) data ulasan TripAdvisor \parencite{FarhanKhodra2017}.}
+    \caption{Sebagian hasil eksperimen penelitian \parencite{FarhanKhodra2017}.}
     \begin{tabular}{|l|l|l|}
     \hline
     \multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{Word Embedding}}} & \multicolumn{2}{c|}{\textbf{Hasil Evaluasi}}                                                    \\ \cline{2-3} 
     \multicolumn{1}{|c|}{}                                         & \multicolumn{1}{c|}{\textbf{10-fold cross validation}} & \multicolumn{1}{c|}{\textbf{Data Uji}} \\ \hline
     Bag of words                                                   & 0.8345                                                 & 0.8232                                 \\ \hline
     TF-IDF                                                         & \textbf{0.8492}                                        & \textbf{0.8521}                        \\ \hline
-    Word2Vec                                                       & 0.7204                                                 & 0.7219                                 \\ \hline
-    SSWE dari W2V                                                  & 0.7311                                                 & 0.7224                                 \\ \hline
+    % Word2Vec                                                       & 0.7204                                                 & 0.7219                                 \\ \hline
+    % SSWE dari W2V                                                  & 0.7311                                                 & 0.7224                                 \\ \hline
     SSWE                                                           & 0.7623                                                 & 0.7687                                 \\ \hline
     \end{tabular}
     \label{tab:FarhanKhodra2017}
@@ -228,9 +277,9 @@ Sebelumnya telah banyak penelitian terkait baik analisis sentimen maupun pembela
 
 \textbf{Pada penelitian \parencite{CrisdayantiPurwarianti2019}} yang berjudul “\textit{Improving Bi-LSTM Performance for Indonesian Sentiment Analysis Using Paragraph Vector}”, dilakukan perbandingan berbagai representasi dokumen dan topologi \textit{neural network}. Hasil terbaik didapatkan oleh model yang dilatih pada representasi kata dengan TF-IDF dan representasi paragraf dengan Doc2vec. Model Bi-LSTM yang dilatih berhasil mendapatkan F1-Score sebesar 0.9369 pada data sentimen dari berbagai media sosial (Twitter, Zomato, TripAdvisor, Facebook, Instagram, Qraved). Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:CrisdayantiPurwarianti2019}.
 
-\begin{table}[]
+\begin{table}[!h]
     \centering
-    \caption{Hasil evaluasi berbagai model dan representasi dokumen pada \parencite{CrisdayantiPurwarianti2019}.}
+    \caption{Hasil penelitian \parencite{CrisdayantiPurwarianti2019}.}
     \begin{tabular}{|l|l|l|l|}
     \hline
     \multicolumn{1}{|c|}{\textbf{Model}} & \multicolumn{1}{c|}{\textbf{Precision}} & \multicolumn{1}{c|}{\textbf{Recall}} & \textbf{F1-Score} \\ \hline
@@ -241,12 +290,29 @@ Sebelumnya telah banyak penelitian terkait baik analisis sentimen maupun pembela
     \label{tab:CrisdayantiPurwarianti2019}
 \end{table}
 
+\textbf{Pada penelitian \parencite{Ibrohim_Budi_2019}} yang berjudul "\textit{Multi-label Hate Speech and Abusive Language Detection in Indonesian Twitter}", dilakukan klasifikasi multi-label ujaran kebencian \& kasar. Dataset ujaran kebencian \& kasar tersebut merupakan \textit{tweet} dari sosial media Twitter\footnote{\url{https://www.twitter.com/}} yang dianotasi oleh 30 anotator dengan berbagai etnis, agama, dan pekerjaan. 
+
+Terdapat dua skenario eksperimen yang dicoba. Pada skenario pertama, klasifikasi dilakukan hingga ke target, kategori, dan levelnya. Pada skenario kedua, klasifikasi hanya dilakukan sampai menentukan kategori teks ujaran kebencian atau kasar saja. Skenario kedua ini lah yang paling dekat dengan tugas akhir ini. Dalam eksperimennya, metrik yang diperhatikan adalah rata-rata dari akurasi prediksi terhadap masing-masing label. Hasil skenario kedua dapat dilihat pada Tabel \ref{tab:Ibrohim_Budi_2019_2}
+
+\begin{table}[hbt]
+    \centering
+    \caption{Hasil klasifikasi ujaran kebencian \parencite{Ibrohim_Budi_2019}.}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Tipe Fitur} & \textbf{Fitur Terbaik} & \textbf{Rata-rata Akurasi (\%)} \\ \hline
+    word n-gram              & word unigram                                    & 73.53                          \\ \hline
+    character n-gram         & character quadgrams                             & 72.44                          \\ \hline
+    ortography               & exclamation mark                                & 45.27                          \\ \hline
+    lexicon                  & positive sentiment + abusive lexicon            & 52.10                          \\ \hline
+    \end{tabular}
+    \label{tab:Ibrohim_Budi_2019_2}
+\end{table}
 
 \textbf{Pada penelitian \parencite{LampleConneau2019}} yang berjudul “\textit{Cross-lingual Language Model Pretraining}”, model berarsitektur \textit{transformer} dilatih dengan MLM dan \textit{shared sub-word vocabulary} pada data Wikipedia. Kemudian keluaran dari \textit{layer} terakhir model ini menjadi masukan ke \textit{layer} linier terakhir. Model mereka berhasil memecahkan beberapa state-of-the-art pada  dataset tolak ukur klasifikasi pembelajaran lintas bahasa XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:LampleConneau2019}. Hasil yang ditampilkan hanya 4 dari 15 bahasa dan hanya hasil XLM dengan pendekatan \textit{unsupervised}.
 
-\begin{table}[]
+\begin{table}[!h]
     \centering
-    \caption{Hasil pada uji akurasi di dataset tolak ukur klasifikasi pembelajaran lintas bahasa XNLI \parencite{LampleConneau2019}.}
+    \caption{Hasil pada uji akurasi di dataset XNLI \parencite{LampleConneau2019}.}
     \begin{tabular}{|l|l|l|l|l|}
     \hline
     \multicolumn{1}{|c|}{\textbf{Evaluasi \textit{Sentence Encoder} Lintas Bahasa}} & \multicolumn{1}{c|}{\textbf{en}} & \multicolumn{1}{c|}{\textbf{fr}} & \textbf{es}   & \textbf{de}   \\ \hline
@@ -258,53 +324,3 @@ Sebelumnya telah banyak penelitian terkait baik analisis sentimen maupun pembela
     \label{tab:LampleConneau2019}
 \end{table}
 
-\textbf{Pada penelitian \parencite{Ibrohim_Budi_2019}} yang berjudul "\textit{Multi-label Hate Speech and Abusive Language Detection in Indonesian Twitter}", dilakukan klasifikasi multi-label ujaran kebencian \& kasar. Terdapat dua skenario eksperimen yang dicoba. Pada skenario pertama, klasifikasi dilakukan hingga ke target, kategori, dan levelnya. Hasilnya dapat dilihat pada Tabel \ref{tab:Ibrohim_Budi_2019_1}. Pada skenario kedua, klasifikasi hanya dilakukan sampai menentukan kategori teks ujaran kebencian atau kasar saja. Hasil skenario kedua dapat dilihat pada Tabel \ref{tab:Ibrohim_Budi_2019_2}
-
-\begin{table}[]
-    \centering
-    \caption{Hasil skenario pertama klasifikasi ujaran kebencian \& kasar pada \parencite{Ibrohim_Budi_2019}.}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{Tipe Fitur} & \textbf{Fitur Terbaik Berdasarkan Rata-rata Akurasi} & \textbf{Rata-rata Akurasi (\%)} \\ \hline
-    word n-gram              & word unigram + bigram + trigram                 & 59.44                          \\ \hline
-    character n-gram         & character quadgrams                             & 52.55                          \\ \hline
-    ortography               & question mark                                   & 44.44                          \\ \hline
-    lexicon                  & negative sentiment                              & 44.45                          \\ \hline
-    \end{tabular}
-    \label{tab:Ibrohim_Budi_2019_1}
-\end{table}
-
-\begin{table}[]
-    \centering
-    \caption{Hasil skenario pertama kedua ujaran kebencian \& kasar pada \parencite{Ibrohim_Budi_2019}.}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{Tipe Fitur} & \textbf{Fitur Terbaik Berdasarkan Rata-rata Akurasi} & \textbf{Rata-rata Akurasi (\%)} \\ \hline
-    word n-gram              & word unigram                                    & 73.53                          \\ \hline
-    character n-gram         & character quadgrams                             & 72.44                          \\ \hline
-    ortography               & exclamation mark                                & 45.27                          \\ \hline
-    lexicon                  & positive sentiment + abusive lexicon            & 52.10                          \\ \hline
-    \end{tabular}
-    \label{tab:Ibrohim_Budi_2019_2}
-\end{table}
-
-% [\textbf{TODO: } Tabel hasil \parencite{LampleConneau2019} pada XNLI]
-
-% \textbf{Pada penelitian \parencite{Lai_Oguz_Yang_Stoyanov_2019}} yang berjudul “\textit{Bridging the Domain Gap in Cross-Lingual Document Classification}”, model tidak hanya dilatih pada representasi kalimat dari XLM untuk dapat mempelajari representasi bahasa, tetapi juga dilakukan augmentasi data untuk mempelajari domain dari data sumber dan target yang digunakan. Hasilnya berhasil menunjukan bahwa aspek domain penting diperhatikan dalam membangun model klasifikasi pembelajaran lintas bahasa.
-
-% [\textbf{TODO: } Tabel hasil \parencite{Lai_Oguz_Yang_Stoyanov_2019}]
-
-
-% \begin{table}[]
-%     \centering
-%     \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-%     \hline
-%     \multicolumn{1}{|c|}{\textbf{Evaluasi Sentence Encoder Lintas Bahasa}} & \multicolumn{1}{c|}{\textbf{en}} & \multicolumn{1}{c|}{\textbf{fr}} & \textbf{es}   & \textbf{de}   & \textbf{el}   & \textbf{bg}   & \textbf{ru}   & \textbf{tr}   & \textbf{ar}   & \textbf{vi}   & \textbf{th}   & \textbf{zh}   & \textbf{hi}   & \textbf{sw}  & \textbf{ur}   \\ \hline
-%     \parencite{LamplePhrase2018}                            & 73.7                             & 67.7                             & 68.7          & 67.7          & 68.9          & 67.9          & 65.4          & 64.2          & 64.8          & 66.4          & 64.1          & 65.8          & 64.1          & 55.7         & 58.4          \\ \hline
-%     \parencite{Devlin_Chang_Lee_Toutanova_2019}         & 81.4                             & -                                & 74.3          & 70.5          & -             & -             & -             & -             & 62.1          & -             & -             & 63.8          & -             & -            & 58.3          \\ \hline
-%     \parencite{Artetxe_Schwenk_2019}                           & 73.9                             & 71.9                             & 72.9          & 72.6          & \textbf{73.1} & \textbf{74.2} & 71.5          & \textbf{69.7} & \textbf{71.4} & \textbf{72.0} & 69.2          & 71.4          & 65.5          & 62.2         & 61.0          \\ \hline
-%     \parencite{LampleConneau2019}                           & \textbf{83.2}                    & \textbf{76.5}                    & \textbf{76.3} & \textbf{74.2} & \textbf{73.1} & 74.0          & \textbf{73.1} & 67.8          & 68.5          & 71.2          & \textbf{69.2} & \textbf{71.9} & \textbf{65.7} & \textbf{64.} & \textbf{63.4} \\ \hline
-%     \end{tabular}
-%     \caption{Hasil pada uji akurasi di dataset tolak ukur klasifikasi pembelajaran lintas bahasa XNLI}
-%     \label{tab:LampleConneau2019}
-% \end{table}

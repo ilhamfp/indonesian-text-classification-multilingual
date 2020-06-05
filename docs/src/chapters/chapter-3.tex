@@ -1,10 +1,12 @@
 \chapter{Analisis dan Rancangan Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multilingual Language Model}}
 
-Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab sebelumnya. Oleh karena itu, bab ini akan terdiri dari analisis permasalahan dan rancangan solusi.
+Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab sebelumnya. Oleh karena itu, bab ini terdiri dari analisis permasalahan dan rancangan solusi.
 
 \section{Analisis Permasalahan}
+	Subbab ini berisi analisis dari dua permasalahan klasifikasi teks yang akan diselesaikan, yaitu analisis sentimen dan klasifikasi ujaran kebencian.
+
 	\subsection{Analisis Permasalahan Analisis Sentimen}
-	Pada penelitian ini, akan digunakan dua buah dataset. Dataset pertama, dirujuk sebagai dataset A, adalah dataset yang sama dengan penelitian \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Dataset kedua, dirujuk sebagai dataset B,  dan dataset dari Prosa.ai \parencite{CrisdayantiPurwarianti2019}. Dataset tersebut berupa kumpulan teks Twitter, Zomato, Facebook, Instagram, Qraved yang sudah dianotasi oleh annotator profesional. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Berikut contoh ulasan yang berlabel negatif.
+	Pada penelitian ini, digunakan dua buah dataset. Dataset pertama, dirujuk sebagai dataset A, adalah dataset yang sama dengan penelitian \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Dataset kedua, dirujuk sebagai dataset B,  dan dataset dari Prosa.ai \parencite{CrisdayantiPurwarianti2019}. Dataset tersebut berupa kumpulan teks Twitter, Zomato, Facebook, Instagram, Qraved yang sudah dianotasi oleh annotator profesional. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Berikut contoh ulasan yang berlabel negatif.
 
 	“Kemaren sengaja coba makan di marugame udon karena istri suka banget sama udon. jadi pesan lah yang kuah kaldu ayam, dan anak saya minta gorengan kroket. saya kira kuahnya langsung dari pancinya harusnya panas, tapi ternyata cuman hangat, yah kecewa juga sih, gorengannya juga sama udah dingin” 
 
@@ -44,7 +46,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		\item \textbf{Ujaran kebencian kuat.} Pada ujaran kebencian kuat, ujaran kebencian dengan kategori agama, ras, stereotip ditargetkan ke grup bersama dengan hasutan / provokasi untuk membuat konflik terbuka.
 	\end{enumerate}
 
-	Berikut beberapa contoh ujaran kebencian pada dataset yang akan digunakan:
+	Berikut beberapa contoh ujaran kebencian pada dataset yang digunakan:
 	
 	\begin{enumerate}
 		\item \textbf{Ujaran kebencian lemah dengan kategori fisik:} \\ 
@@ -57,7 +59,7 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		"ARTINYA APA ? Pribumi sadari \& lihat siapa mereka ? KECUALI KALIAN sama-sama CINA KOMUNIS / MISIONARIS abaikan tweet ini usir cina Indonesia"
 	\end{enumerate}
 
-	Dalam tugas akhir ini, analisis permasalahan dilakukan tidak sampai ke kategori, target, atau levelnya. Permasalahan ini disederhakan menjadi klasifikasi biner di mana teks diklasifikasi menjadi antara ujaran kebencian \& kasar atau tidak saja. Hal ini dilakukan berhubungan dengan ketersediaan data bahasa asing yang akan dibicarakan pada sub bab selanjutnya.
+	Dalam tugas akhir ini, analisis permasalahan dilakukan tidak sampai ke kategori, target, atau levelnya. Permasalahan ini disederhakan menjadi klasifikasi biner di mana teks diklasifikasi menjadi antara ujaran kebencian \& kasar atau tidak saja. Hal ini dilakukan berhubungan dengan ketersediaan data bahasa asing yang dibicarakan pada subbab selanjutnya.
 
 	Penelitian terkait oleh \parencite{Ibrohim_Budi_2019} mengekplorasi berbagai jenis algoritma dan fitur terbaik yang dapat digunakan untuk melakukan klasifikasi pada data tersebut.. Meski sudah mendapatkan hasil, penelitian terkait sebelumnya belum mengeksplorasi penggunaan \textit{language model} dalam bentuk apapun, terlebih lagi penggunaan \textit{transfer learning} lintas bahasa.
 
@@ -72,14 +74,14 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 % Tidak hanya itu, gap antar domain yang menjadi ulasan pun dapat diselesaikan dengan teknik augmentasi yang \parencite{Lai_Oguz_Yang_Stoyanov_2019} kembangkan. 
 
 \section{Rancangan Solusi}
-	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, \textit{language model} antar bahasa seperti XLM atau mBERT dapat digunakan untuk memperkaya analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Diantara berbagai bahasa yang sudah dilatih pada \textit{language model} XLM dan mBERT adalah bahasa Indonesia dan bahasa Inggris. Sub-bab selanjutnya akan membahas pemilihan dataset bahasa Inggris yang akan digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
+	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, \textit{language model} antar bahasa seperti XLM atau mBERT dapat digunakan untuk memperkaya analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Diantara berbagai bahasa yang sudah dilatih pada \textit{language model} XLM dan mBERT adalah bahasa Indonesia dan bahasa Inggris. Subbab selanjutnya membahas pemilihan dataset bahasa Inggris yang digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
 
 	\subsection{Dataset Bahasa Inggris Analisis Sentimen}
-	Dataset bahasa Inggris yang akan digunakan adalah dataset ulasan pada website \textit{Yelp}\footnote{\url{https://www.yelp.com/dataset/challenge}}. Dataset dipilih dikarenakan jumlahnya dan kesesuaian domainnya dengan dataset TripAdvisor. Dataset polaritas Yelp reviews  dibangun dengan mengubah semua rating bintang 1 dan 2 menjadi negatif, dan rating bintang 3 dan 4 menjadi positif. Rincian dari dataset dapat dilihat pada tabel \ref{tab:detail_yelp_review}.
+	Dataset bahasa Inggris yang digunakan adalah dataset ulasan pada website \textit{Yelp}\footnote{\url{https://www.yelp.com/dataset/challenge}}. Dataset dipilih dikarenakan jumlahnya dan kesesuaian domainnya dengan dataset TripAdvisor. Dataset polaritas Yelp reviews  dibangun dengan mengubah semua rating bintang 1 dan 2 menjadi negatif, dan rating bintang 3 dan 4 menjadi positif. Rincian dari dataset dapat dilihat pada tabel \ref{tab:detail_yelp_review}.
 
 	\begin{table}[ht]
 	    \centering
-	    \caption{Rincian banyak data pada tiap partisi dan label di dataset \textit{Yelp review}.}
+	    \caption{Rincian banyak data pada tiap partisi dan label di dataset \textit{Yelp review}}
 	    \begin{tabular}{@{}cc|cc@{}}
 	    \multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
 	    \multicolumn{1}{c}{} & 
@@ -95,10 +97,10 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 	    \label{tab:detail_yelp_review}
 	\end{table}
 
-	Sesuainya domain antara dataset sumber dan target sangat penting dikarenakan perbedaan domain dapat menurunkan performa klasifikasi \parencite{Lai_Oguz_Yang_Stoyanov_2019}. Hal ini dikarenakan sentimen tidak diutarakan dengan cara yang sama pada domain yang berbeda. Ulasan pada domain produk di toko \textit{e-commerce} akan berbeda dengan ulasan pada domain restoran. Pada domain produk di toko \textit{e-commerce}, ulasan akan berkutat pada aspek seperti kecepatan pengiriman barang, keselamatan barang, dan kualitas dari barang yang dibeli. Sedangkan ulasan pada domain restoran akan berkutat pada keramahan pelayanan, suasana restoran, dan kualitas makanan.
+	Sesuainya domain antara dataset sumber dan target sangat penting dikarenakan perbedaan domain dapat menurunkan performa klasifikasi \parencite{Lai_Oguz_Yang_Stoyanov_2019}. Hal ini dikarenakan sentimen tidak diutarakan dengan cara yang sama pada domain yang berbeda. Ulasan pada domain produk di toko \textit{e-commerce} berbeda dengan ulasan pada domain restoran. Pada domain produk di toko \textit{e-commerce}, ulasan berkutat pada aspek seperti kecepatan pengiriman barang, keselamatan barang, dan kualitas dari barang yang dibeli. Sedangkan ulasan pada domain restoran berkutat pada keramahan pelayanan, suasana restoran, dan kualitas makanan.
 	
 	\subsection{Dataset Bahasa Inggris Klasifikasi Ujaran Kebencian \& Kasar}
-	Dataset bahasa Inggris yang akan digunakan adalah dataset ujaran kebencian \& kasar oleh inkubator teknologi milik Google, Jigsaw\footnote{\url{https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data}}. Data ini berisi 1.902.194 (152.111 \textit{toxic} \& 1.750.083 normal)teks percakapan daring yang dianotasi oleh puluhan hingga ribuan annotator per teks. 
+	Dataset bahasa Inggris yang digunakan adalah dataset ujaran kebencian \& kasar oleh inkubator teknologi milik Google, Jigsaw\footnote{\url{https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data}}. Data ini berisi 1.902.194 (152.111 \textit{toxic} \& 1.750.083 normal)teks percakapan daring yang dianotasi oleh puluhan hingga ribuan annotator per teks. 
 
 	Label utama yang menjadi fokus dataset ini adalah \textit{toxic} atau tidaknya sebuah teks. Jigsaw mendefinisikan komentar yang \textit{toxic} sebagai komentar kasar, tidak sopan, atau tidak masuk akal yang agaknya membuat Anda meninggalkan diskusi atau menyerah untuk berbagi perspektif Anda. Dapat dilihat, hal ini kurang lebih meliputi definisi ujaran kebencian \& kasar di bahasa Indonesia yang dijabarkan pada bab sebelumnya.
 
@@ -110,67 +112,72 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		other\_sexual\_orientation
 		\item \textbf{agama:} atheist, buddhist, christian, hindu, muslim, other\_religion
 		\item \textbf{disabilitas:} intellectual\_or\_learning\_disability, other\_disability, physical\_disability, psychiatric\_or\_mental\_illness
-		\item \textbf{severe\_toxicity}
 	\end{enumerate}
 
-	Meski sangat spesifik dan lengkap, pelabelan data ini tidak sama persis dengan dataset bahasa Indonesia yang akan digunakan. Data ini tidak memiliki label untuk target individu / grup dan pembagian levelnya hanya dua (\textit{toxic} / \textit{severe\_toxicity}). Selain itu, data ini juga tidak membedakan label utama menjadi ujaran kebencian / kasar. Oleh karena itu dilakukan penyederhaan agar kedua dataset ini dapat digunakan. Penyederhanaan itu berupa mengubah label pada dataset Indonesia menjadi biner (ujaran kebencian \& kasar atau tidak) dan tidak menggunakan label lebih spesifik seperti kategori dan level pada kedua dataset.
+	Meski sangat spesifik dan lengkap, pelabelan data ini tidak sama persis dengan dataset bahasa Indonesia yang digunakan. Data ini tidak memiliki label untuk target individu / grup dan pembagian levelnya hanya dua (\textit{toxic} / \textit{severe\_toxicity}). Selain itu, data ini juga tidak membedakan label utama menjadi ujaran kebencian / kasar. Oleh karena itu dilakukan penyederhaan agar kedua dataset ini dapat digunakan. Penyederhanaan itu berupa mengubah label pada dataset Indonesia menjadi biner (ujaran kebencian \& kasar atau tidak) dan tidak menggunakan label lebih spesifik seperti kategori dan level pada kedua dataset.
+
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.75\textwidth]{resources/Head-fine-tune.png}
+		\caption{ Ilustrasi \textit{fine-tuning} layer terakhir}
+		\label{fig:ilustrasi_head_fine_tune}
+	\end{figure}
+
+	\begin{figure}[b]
+		\centering
+		\includegraphics[width=0.75\textwidth]{resources/Full-fine-tune.png}
+		\caption{ Ilustrasi \textit{fine-tuning} penuh}
+		\label{fig:ilustrasi_full_fine_tune}
+	\end{figure}
 
 	\subsection{Fine-tuning}
-	Untuk melakukan fine-tuning, sebuah \textit{dense layer} ditambahkan di atas keluaran dari \textit{language model} yang sudah di-\textit{pretrained}. Hal ini sama dengan teknik yang \parencite{LampleConneau2019} lakukan pada masalah klasifikasi antar bahasa dengan dataset XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Teknik \textit{fine-tuning} dapat dilakukan pada seluruh \textit{layer} atau hanya \textit{layer} terakhir. Berikut penjelasan dan ilustrasi mengenai dua teknik tersebut
+	Untuk melakukan \textit{fine-tuning} model klasifikasi teks biner, sebuah \textit{dense layer} ditambahkan di atas keluaran dari \textit{language model} yang sudah di-\textit{pretrained}. Hal ini sama dengan teknik yang \parencite{LampleConneau2019} lakukan pada masalah klasifikasi antar bahasa dengan dataset XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Penelitian, \parencite{Devlin_Chang_Lee_Toutanova_2019} mendefinisikan dua teknik \textit{fine-tuning} yang biasa dilakukan adalah melatih keseluruhan model atau hanya menggunakan \textit{language model} untuk mengekstraksi fitur dan kemudian melatih layer terakhir saja. Berikut penjelasan dan ilustrasi mengenai dua teknik tersebut
 	\begin{enumerate}
 		\item \textbf{Hanya Layer Terakhir}\\	
 		Melatih	model secara keseluruhan memerlukan waktu dan sumber daya yang besar. Waktu dapat dipersingkat dengan membekukan dan tidak melatih lebih lanjut komponen \textit{multilingual language model} yang sudah mempelajari representasi teks antar bahasa. Komponen yang dilatih hanyalah \textit{dense layer} yang baru ditambahkan di atas model untuk melakukan klasifikasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_head_fine_tune}.
-		\begin{figure}[h]
-		    \centering
-		    \includegraphics[width=0.75\textwidth]{resources/Head-fine-tune.png}
-		    \caption{ Ilustrasi \textit{fine-tuning} layer terakhir.}
-		    \label{fig:ilustrasi_head_fine_tune}
-		\end{figure}
 
-		Teknik fine-tuning seperti ini memang akan menghasilkan performa yang lebih rendah dibanding melakukan fine-tuning penuh seluruh arsitektur. Hal ini dikarenakan penggunaan representasi teks lintas bahasa yang murni dari hasil \textit{pretraining} sebagai fitur dan tidak dilakunannya penyempurnaan representasi ke permasalahan yang sedang diselesaikan. Tetapi walaupun begitu, efek dari penggunaan \textit{multilingual language model} dalam memanfaatkan bahasa yang lebih banyak sumber dayanya ke permasalahan bahasa Indonesia tetap dapat diobservasi.
+		Teknik \textit{fine-tuning} seperti ini memang menghasilkan performa yang lebih rendah dibanding melakukan \textit{fine-tuning} penuh seluruh arsitektur. Hal ini dikarenakan penggunaan representasi teks lintas bahasa yang murni dari hasil \textit{pretraining} sebagai fitur dan tidak dilakunannya penyempurnaan representasi ke permasalahan yang sedang diselesaikan. Tetapi walaupun begitu, efek dari penggunaan \textit{multilingual language model} dalam memanfaatkan bahasa yang lebih banyak sumber dayanya ke permasalahan bahasa Indonesia tetap dapat diobservasi.
 
 		\item \textbf{Penuh}\\
-		Pada teknik fine-tuning full, seluruh arsitektur dilatih dengan fungsi \textit{loss} dari hasil klasifikasi. Dengan teknik ini, potensi secara keseluruhan dari \textit{pretrained multilingual language model} dapat diobservasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_full_fine_tune}.
-
-		\begin{figure}[h]
-		    \centering
-		    \includegraphics[width=0.75\textwidth]{resources/Full-fine-tune.png}
-		    \caption{ Ilustrasi \textit{fine-tuning} penuh.}
-		    \label{fig:ilustrasi_full_fine_tune}
-		\end{figure}
-
+		Pada teknik \textit{fine-tuning} full, seluruh arsitektur dilatih dengan fungsi \textit{loss} dari hasil klasifikasi. Dengan teknik ini, potensi secara keseluruhan dari \textit{pretrained multilingual language model} dapat diobservasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_full_fine_tune}.
 		
 	\end{enumerate}
+
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=0.75\textwidth]{resources/Data-tipe-A.png}
+		\caption{Ilustrasi partisi data skenario monolingual}
+		\label{fig:data_tipe_a}
+	\end{figure}
 
 	\subsection{Skenario Eksperimen}
 	Terdapat tiga skenario eksperimen yang dilakukan untuk mencapai tujuan tugas akhir. Tiga skenario ini hanya memiliki perbedaan pada bahasa data yang digunakan untuk melakukan pelatihan. Berikut deskripsi tiap skenario:
 	\begin{enumerate}
-		\item \textbf{Skenario A: Monolingual}\\
+		\item \textbf{Skenario Monolingual}\\
 		Dalam skenario ini, data untuk pelatihan, validasi, dan pengujian adalah data bahasa Indonesia. Skenario ini digunakan untuk menentukan \textit{baseline} dari performa model terhadap permasalahan. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_a}.
-		\begin{figure}[h]
-		    \centering
-		    \includegraphics[width=0.75\textwidth]{resources/Data-tipe-A.png}
-		    \caption{Ilustrasi partisi data skenario A.}
-		    \label{fig:data_tipe_a}
-		\end{figure}
 
-		\item \textbf{Skenario B: Zero-shot}\\
-		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris, sedangkan data validasi dan tes adalah data bahasa Indonesia. Skenario ini digunakan untuk melihat disparitas antara performa model yang dilatih dengan bahasa berbeda. Dari perbedaan performa skenario A dan B, representasi teks antar bahasa dari \textit{multilingual language model} dan juga hubungan antara dataset yang digunakan dapat dievaluasi. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_b}.
-		\begin{figure}[h]
+		\begin{figure}[t]
 		    \centering
 		    \includegraphics[width=0.75\textwidth]{resources/Data-tipe-B.png}
-		    \caption{Ilustrasi partisi data skenario B.}
+		    \caption{Ilustrasi partisi data skenario zero-shot}
 		    \label{fig:data_tipe_b}
 		\end{figure}
 
-		\item \textbf{Skenario C: Multilingual Learning}\\
-		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris dan Indonesia, sedangkan data validasi dan tes adalah data bahasa Indonesia. Pada skenario ini, perbandingan antara banyak data bahasa Inggris dengan data bahasa Indonesia akan divariasikan. Skenario ini digunakan untuk melihat seberapa efektif \textit{multilingual learning} dengan \textit{multilingual language model} pada klasifikasi teks bahasa Indonesia. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_c}.
+		\item \textbf{Skenario Zero-shot}\\
+		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris, sedangkan data validasi dan tes adalah data bahasa Indonesia. Skenario ini digunakan untuk melihat disparitas antara performa model yang dilatih dengan bahasa berbeda. Dari perbedaan performa skenario A dan B, representasi teks antar bahasa dari \textit{multilingual language model} dan juga hubungan antara dataset yang digunakan dapat dievaluasi. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_b}.
+
+		
+
 		\begin{figure}[h]
 		    \centering
 		    \includegraphics[width=0.75\textwidth]{resources/Data-tipe-C.png}
-		    \caption{Ilustrasi partisi data skenario C.}
+		    \caption{Ilustrasi partisi data skenario multilingual learning}
 		    \label{fig:data_tipe_c}
 		\end{figure}
+
+		\item \textbf{Skenario Multilingual Learning}\\
+		Dalam skenario ini, data untuk pelatihan adalah data bahasa Inggris dan Indonesia, sedangkan data validasi dan tes adalah data bahasa Indonesia. Pada skenario ini, perbandingan antara banyak data bahasa Inggris dengan data bahasa Indonesia divariasikan. Skenario ini digunakan untuk melihat seberapa efektif \textit{multilingual learning} dengan \textit{multilingual language model} pada klasifikasi teks bahasa Indonesia. Detail ilustrasi dapat dilihat pada Gambar \ref{fig:data_tipe_c}.
+		
 		
 	\end{enumerate}
 

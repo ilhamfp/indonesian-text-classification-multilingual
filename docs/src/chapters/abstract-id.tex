@@ -2,7 +2,7 @@
 \chapter*{ABSTRAK}
 \addcontentsline{toc}{chapter}{Abstrak}
 \begin{center} 
-    \normalsize \bfseries \MakeUppercase{Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multilingual Language Model (Studi Kasus: Klasifikasi Ujaran Kebencian dan Analisis Sentimen)}} 
+    \large \bfseries \MakeUppercase{Klasifikasi Teks Berbahasa Indonesia Menggunakan \textit{Multilingual Language Model (Studi Kasus: Klasifikasi Ujaran Kebencian dan Analisis Sentimen)}} 
 
     \normalsize \normalfont{Oleh\\
     ILHAM FIRDAUSI PUTRA\\
@@ -11,7 +11,12 @@
 \end{center}
 
 %taruh abstrak bahasa indonesia di sini
-\blindtext
 
-\textbf{Kata kunci:} \textit{multilingual language lodel}, analisis sentimen, klasifikasi ujaran kebencian
+Klasifikasi teks adalah proses memprediksi kategori tertentu dari sebuah teks. Contoh kategori adalah nilai sentimen atau status ujaran kebencian. Teknik klasifikasi teks \textit{state-of-the-art} saat ini menggunakan deep learning yang memerlukan data latih dalam ukuran besar. Bersamaan dengan itu, perkembangan dalam bidang representasi teks telah memungkinkan teks dari berbagai bahasa direpresentasikan dalam satu bidang yang sama menggunakan \textit{multilingual language model}. Dua diantaranya adalah MultilingualBERT \parencite{Devlin_Chang_Lee_Toutanova_2019} dan XLM-R\parencite{Conneau_XLMR}.
+
+Dengan memanfaatkan MultilingualBERT dan XLM-R, representasi teks antar bahasa dapat digunakan untuk membangun model klasifikasi bahasa Indonesia dengan kombinasi data bahasa Indonesia dan bahasa Inggris. Tugas akhir ini memanfaatkan hal tersebut untuk membangun model klasifikasi teks bahasa Indonesia yang meningkatkan performa hasil penelitian \parencite{FarhanKhodra2017} \& \parencite{CrisdayantiPurwarianti2019} mengenai analisis sentimen dan versi biner penelitian \parencite{Ibrohim_Budi_2019} mengenai ujaran kebencian \& kasar. Eksperimen dilakukan dengan memvariasikan jumlah data bahasa Indonesia, jumlah data bahasa Inggris, dan teknik \textit{fine-tuning}.
+
+Hasil eksperimen menunjukkan XLM-R berhasil meningkat hasil analisis sentimen pada dataset penelitian \parencite{FarhanKhodra2017} dari F1-score 0,8341 ke 0,893; penelitian \parencite{CrisdayantiPurwarianti2019} dari F1-score 0,9369 ke 1; dan penelitian \parencite{Ibrohim_Budi_2019} dari rata-rata akurasi 77.36\% ke 89.52\%. Meski ada kasus dimana penambahan data bahasa Inggris berlebih menurunkan performa klasifikasi yang harus dianalisa lebih lanjut, hasil eksperimen menunjukkan bahwa penambahan dataset bahasa Inggris, terutama jika data bahasa Indonesia sedikit, dapat membantu meningkatkan performa klasifikasi teks bahasa Indonesia menggunakan model XLM-R.
+
+\textbf{Kata kunci:} \textit{multilingual language model}, analisis sentimen, klasifikasi ujaran kebencian
 \clearpage
