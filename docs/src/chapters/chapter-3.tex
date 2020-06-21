@@ -65,14 +65,6 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 
 	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan penggunaan representasi antar bahasanya untuk melatih model klasifikasi ujaran kebencian \& kasar bahasa Indonesia dengan dataset bahasa lainnya.
 
-
-
-% Data adalah inti dari pembangunan sistem analisis sentimen. Sedikitnya data yang sudah dianotasi pada bahasa Indonesia menyulitkan pengembangan sistem analisis sentimen yang lebih akurat. Di lain hal, bahasa asing seperti bahasa Inggris memiliki jauh lebih banyak data yang sudah dianotasi. Teknik yang dapat memanfaatkan data dari bahasa asing untuk membangun sistem pemrosesan teks di bahasa Indonesia diperlukan.
-
-% Teknik pemrosesan teks memungkinkan pembangunan ruang embedding antar bahasa. Dengan memanfaatkan representasi teks antar bahasa, dimungkinkan melatih classifier pada suatu bahasa dan menggunakannya pada bahasa lain seperti pada \parencite{Artetxe_Schwenk_2019}.
-
-% Tidak hanya itu, gap antar domain yang menjadi ulasan pun dapat diselesaikan dengan teknik augmentasi yang \parencite{Lai_Oguz_Yang_Stoyanov_2019} kembangkan. 
-
 \section{Rancangan Solusi}
 	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, \textit{language model} antar bahasa seperti XLM atau mBERT dapat digunakan untuk memperkaya analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Diantara berbagai bahasa yang sudah dilatih pada \textit{language model} XLM dan mBERT adalah bahasa Indonesia dan bahasa Inggris. Subbab selanjutnya membahas pemilihan dataset bahasa Inggris yang digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
 
@@ -116,32 +108,6 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 
 	Meski sangat spesifik dan lengkap, pelabelan data ini tidak sama persis dengan dataset bahasa Indonesia yang digunakan. Data ini tidak memiliki label untuk target individu / grup dan pembagian levelnya hanya dua (\textit{toxic} / \textit{severe\_toxicity}). Selain itu, data ini juga tidak membedakan label utama menjadi ujaran kebencian / kasar. Oleh karena itu dilakukan penyederhaan agar kedua dataset ini dapat digunakan. Penyederhanaan itu berupa mengubah label pada dataset Indonesia menjadi biner (ujaran kebencian \& kasar atau tidak) dan tidak menggunakan label lebih spesifik seperti kategori dan level pada kedua dataset.
 
-	\begin{figure}[t]
-		\centering
-		\includegraphics[width=0.75\textwidth]{resources/Head-fine-tune.png}
-		\caption{ Ilustrasi \textit{fine-tuning} layer terakhir}
-		\label{fig:ilustrasi_head_fine_tune}
-	\end{figure}
-
-	\begin{figure}[b]
-		\centering
-		\includegraphics[width=0.75\textwidth]{resources/Full-fine-tune.png}
-		\caption{ Ilustrasi \textit{fine-tuning} penuh}
-		\label{fig:ilustrasi_full_fine_tune}
-	\end{figure}
-
-	\subsection{Fine-tuning}
-	Untuk melakukan \textit{fine-tuning} model klasifikasi teks biner, sebuah \textit{dense layer} ditambahkan di atas keluaran dari \textit{language model} yang sudah di-\textit{pretrained}. Hal ini sama dengan teknik yang \parencite{LampleConneau2019} lakukan pada masalah klasifikasi antar bahasa dengan dataset XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Penelitian, \parencite{Devlin_Chang_Lee_Toutanova_2019} mendefinisikan dua teknik \textit{fine-tuning} yang biasa dilakukan adalah melatih keseluruhan model atau hanya menggunakan \textit{language model} untuk mengekstraksi fitur dan kemudian melatih layer terakhir saja. Berikut penjelasan dan ilustrasi mengenai dua teknik tersebut
-	\begin{enumerate}
-		\item \textbf{Hanya Layer Terakhir}\\	
-		Melatih	model secara keseluruhan memerlukan waktu dan sumber daya yang besar. Waktu dapat dipersingkat dengan membekukan dan tidak melatih lebih lanjut komponen \textit{multilingual language model} yang sudah mempelajari representasi teks antar bahasa. Komponen yang dilatih hanyalah \textit{dense layer} yang baru ditambahkan di atas model untuk melakukan klasifikasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_head_fine_tune}.
-
-		Teknik \textit{fine-tuning} seperti ini memang menghasilkan performa yang lebih rendah dibanding melakukan \textit{fine-tuning} penuh seluruh arsitektur. Hal ini dikarenakan penggunaan representasi teks lintas bahasa yang murni dari hasil \textit{pretraining} sebagai fitur dan tidak dilakunannya penyempurnaan representasi ke permasalahan yang sedang diselesaikan. Tetapi walaupun begitu, efek dari penggunaan \textit{multilingual language model} dalam memanfaatkan bahasa yang lebih banyak sumber dayanya ke permasalahan bahasa Indonesia tetap dapat diobservasi.
-
-		\item \textbf{Penuh}\\
-		Pada teknik \textit{fine-tuning} full, seluruh arsitektur dilatih dengan fungsi \textit{loss} dari hasil klasifikasi. Dengan teknik ini, potensi secara keseluruhan dari \textit{pretrained multilingual language model} dapat diobservasi. Ilustrasi dari proses ini dapat dilihat pada Gambar \ref{fig:ilustrasi_full_fine_tune}.
-		
-	\end{enumerate}
 
 	\begin{figure}[]
 		\centering
