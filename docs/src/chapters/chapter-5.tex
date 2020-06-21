@@ -3,11 +3,29 @@
 \section{Kesimpulan}
 Berikut beberapa kesimpulan yang dapat ditarik dari tugas akhir ini:
 \begin{enumerate}
-    \item Model \textit{multilingual} XLM-R lebih bagus dibanding MultilingualBERT dalam membantu meningkatkan performa klasifikasi teks bahasa Indonesia. Representasi teks antar bahasa yang lebih bagus, baik melalui teknik optimisasi yang lebih optimal dan penambahan data yang XLM-R sudah lakukan, sangat berpengaruh terhadap kemampuan \textit{multilingual language model} berkinerja baik di permasalahan klasifikasi teks bahasa Indonesia.
-    \item Penambahan dataset bahasa Inggris, terutama jika data bahasa Indonesia sedikit, dapat membantu meningkatkan performa klasifikasi teks bahasa Indonesia menggunakan \textit{multilingual language model} XLM-R.  Hanya ada kasus dimana penambahan data bahasa Inggris berlebih menurunkan performa klasifikasi. Analisis lebih lanjut mengenai kenapa hal ini terjadi dan apa solusinya diperlukan.
+    \item Penambahan dataset bahasa Inggris, terutama jika data bahasa Indonesia sedikit, dapat membantu meningkatkan performa klasifikasi teks bahasa Indonesia menggunakan \textit{multilingual language model} XLM-R. Dapat dilihat pada Tabel \ref{tab:gain_conclusion}, jumlah peningkatan performa naik dengan semakin sedikit total data. Hanya saja ada kasus dimana penambahan data bahasa Inggris berlebih menurunkan performa klasifikasi. Analisis lebih lanjut mengenai kenapa hal ini terjadi dan apa solusinya diperlukan.
+    % Please add the following required packages to your document preamble:
+    % \usepackage{multirow}
+    \begin{table}[]
+        \centering
+        \caption{Rangkuman peningkatan performa}
+        \begin{tabular}{|l|r|r|}
+        \hline
+        \multicolumn{1}{|c|}{\multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Total\\ Data\end{tabular}}}} & \multicolumn{2}{c|}{\textbf{Rata-rata peningkatan}}                       \\ \cline{2-3} 
+        \multicolumn{1}{|c|}{}                                                                               & \multicolumn{1}{c|}{\textbf{XLM-R}} & \multicolumn{1}{c|}{\textbf{mBERT}} \\ \hline
+        500                                                                                                  & 0.176221                            & 0.129394                            \\ \hline
+        1000                                                                                                 & 0.165718                            & 0.109215                            \\ \hline
+        2500                                                                                                 & 0.118456                            & 0.051226                            \\ \hline
+        5000                                                                                                 & 0.095780                            & 0.029564                            \\ \hline
+        7500                                                                                                 & 0.086930                            & 0.028043                            \\ \hline
+        10000                                                                                                & 0.077875                            & 0.020184                            \\ \hline
+        \end{tabular}
+        \label{tab:gain_conclusion}
+    \end{table}
+    \item Penambahan dataset bahasa Inggris dapat membantu model mendapatkan informasi baru dalam bahasa Indonesia. Hal ini dapat dilihat dari analisis hasil peningkatan performa pada analisis sentimen dataset B. Model yang sebelumnya gagal memprediksi teks bahasa Indonesia, berhasil setelah ditambahkan data bahasa Inggris.
     \item Penggunaan \textit{multilingual language model} yang di \textit{fine-tune} sepenuhnya sangat efektif dalam klasifikasi teks bahasa Indonesia. 
     \begin{enumerate}
-    	\item Pada eksperimen sentimen analisis dataset A, model mendapatkan F1-score 0,893. Sebuah peningkatan dari penelitian sebelumnya yang mendapatkan F1-score 0,8341.
+    	\item Pada eksperimen sentimen analisis dataset A, model mendapatkan F1-score 0,893. Sebuah peningkatan dari penelitian sebelumnya yang mendapatkan F1-score 0,8521.
         \item Pada eksperimen sentimen analisis dataset B, model mendapatkan F1-score sempurna. Sebuah peningkatan absolut dari penelitian sebelumnya yang mendapatkan F1-score 0,9369.
         \item Pada eksperimen klasifikasi ujaran kebencian, model mendapatkan F1-score 0.898 dan akurasi 89.9\%. Penelitian sebelumnya yang menggunakan 3 label, bukan yang disimplifikasi menjadi 2 seperti di penelitian ini, mendapatkan rata-rata akurasi tertinggi 77.36\%. Agar dapat dibandingkan, eksperimen dijalankan dengan konfigurasi label yang sama dan didapatkan rata-rata akurasi 89.52\% yang merupakan peningkatan dari penelitian sebelumnya.
     \end{enumerate}

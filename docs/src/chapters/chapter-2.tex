@@ -147,8 +147,8 @@ Bab ini menjelaskan secara umum konsep \textit{language model}, perkembangan rep
 
     Setiap kata baru yang diberikan dan representasi vektor kontinu \(x\) dapat dipetakan ke ruang bahasa lain dengan menghitung \(z = W x\) pada saat prediksi. Kemudian kata yang representasinya paling dekat dengan \(z\) dalam ruang bahasa target dapat ditemukan menggunakan \textit{cosine similarity} sebagai metrik jarak. Terlepas dari kesederhanaannya, metode transformasi linier ini bekerja dengan baik dalam eksperimen yang \parencite{MikolovExploiting} jalankan, lebih baik daripada teknik \textit{nearest neighbour} dan juga pengklasifikasi \textit{neural network}.
 
-    Meski \textit{monolingual mapping} sukses mendapatkan ruang \textit{embedding} antar bahasa, teknik ini mahal dan susah diaplikasikan ke bahasa yang memiliki sumber daya rendah. Untuk dapat mengaplikasikan teknik ini diperlukan kamus kata-kata atau kalimat paralel antar bahasa, hal yang seringkali tidak tersedia pada bahasa bersumber daya rendah. Oleh karena itu, mengaplikasikan teknik ini sangat sulit pada bahasa Indonesia. 
-
+    Meski \textit{monolingual mapping} sukses mendapatkan ruang \textit{embedding} antar bahasa, teknik ini mahal dan susah diaplikasikan ke bahasa yang memiliki sumber daya rendah. Untuk dapat mengaplikasikan teknik ini diperlukan kamus kata-kata atau kalimat paralel antar bahasa, hal yang seringkali tidak tersedia pada bahasa bersumber daya rendah. Oleh karena itu, mengaplikasikan teknik ini sangat sulit pada bahasa Indonesia.
+    
     \subsection{Joint Optimization}
     Pada teknik \textit{Joint Optimization}, model dilatih pada korpus dari berbagai bahasa. Model kemudian mengoptimisasi \textit{loss} dari objektif monolingual, \textit{cross-lingual}, atau kombinasi keduanya. Sebuah kemajuan terbaru dari teknik \textit{joint optimization} berhasil mengatasi permasalahan dibutuhkannya kamus paralel yang ada di teknik sebelumnya. Teknik \textit{joint optimization} yang sebelumnya memerlukan korpus paralel atau kamus bilingual (\textit{supervised}) \parencite{Xing_Wang_Liu_Lin}, kini dapat dilakukan tanpa korpus paralel atau kamus bilingual (\textit{unsupervised}) \parencite{Devlin_Chang_Lee_Toutanova_2019} \parencite{LampleConneau2019}. Penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019} dan \parencite{Conneau_XLMR} melatih model pada korpus dari berbagai bahasa tanpa menggunakan objektif \textit{cross-lingual} apapun. Model yang dihasilkan telah menunjukkan kemampuan generalisasi yang baik di seluruh bahasa dan representasi agnostik bahasa di dalam keadaan tersembunyi \parencite{Pires_Schlinger_Garrette_2019}.
 
@@ -338,8 +338,6 @@ Terdapat dua skenario eksperimen yang dicoba. Pada skenario pertama, klasifikasi
     \label{tab:Ibrohim_Budi_2019_2}
 \end{table}
 
-\textbf{Pada penelitian \parencite{LampleConneau2019}} yang berjudul “\textit{Cross-lingual Language Model Pretraining}”, model berarsitektur \textit{transformer} dilatih dengan MLM dan \textit{shared sub-word vocabulary} pada data Wikipedia. Kemudian keluaran dari \textit{layer} terakhir model ini menjadi masukan ke \textit{layer} linier terakhir. Model mereka berhasil memecahkan beberapa state-of-the-art pada  dataset tolak ukur klasifikasi pembelajaran lintas bahasa XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:LampleConneau2019}. Hasil yang ditampilkan hanya 4 dari 15 bahasa dan hanya hasil XLM dengan pendekatan \textit{unsupervised}.
-
 \begin{table}[!h]
     \centering
     \caption{Hasil pada uji akurasi di dataset XNLI \parencite{LampleConneau2019}.}
@@ -353,4 +351,8 @@ Terdapat dua skenario eksperimen yang dicoba. Pada skenario pertama, klasifikasi
     \end{tabular}
     \label{tab:LampleConneau2019}
 \end{table}
+
+\textbf{Pada penelitian \parencite{LampleConneau2019}} yang berjudul “\textit{Cross-lingual Language Model Pretraining}”, model berarsitektur \textit{transformer} dilatih dengan MLM dan \textit{shared sub-word vocabulary} pada data Wikipedia. Kemudian keluaran dari \textit{layer} terakhir model ini menjadi masukan ke \textit{layer} linier terakhir. Model mereka berhasil memecahkan beberapa state-of-the-art pada  dataset tolak ukur klasifikasi pembelajaran lintas bahasa XNLI \parencite{Conneau_Rinott_Lample_Williams_Bowman_Schwenk_Stoyanov_2018}. Hasil dari penelitian ini dapat dilihat pada Tabel \ref{tab:LampleConneau2019}. Hasil yang ditampilkan hanya 4 dari 15 bahasa dan hanya hasil XLM dengan pendekatan \textit{unsupervised}.
+
+
 

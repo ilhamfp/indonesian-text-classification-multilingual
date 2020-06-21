@@ -6,7 +6,47 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 	Subbab ini berisi analisis dari dua permasalahan klasifikasi teks yang akan diselesaikan, yaitu analisis sentimen dan klasifikasi ujaran kebencian.
 
 	\subsection{Analisis Permasalahan Analisis Sentimen}
-	Pada penelitian ini, digunakan dua buah dataset. Dataset pertama, dirujuk sebagai dataset A, adalah dataset yang sama dengan penelitian \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Dataset kedua, dirujuk sebagai dataset B,  dan dataset dari Prosa.ai \parencite{CrisdayantiPurwarianti2019}. Dataset tersebut berupa kumpulan teks Twitter, Zomato, Facebook, Instagram, Qraved yang sudah dianotasi oleh annotator profesional. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Berikut contoh ulasan yang berlabel negatif.
+	Pada penelitian ini, digunakan dua buah dataset. Dataset pertama, dirujuk sebagai dataset A, adalah dataset yang sama dengan penelitian \parencite{FarhanKhodra2017}. Dataset tersebut merupakan ulasan-ulasan dari situs TripAdvisor yang kemudian dilabeli positif untuk nilai 3-5 dan negatif untuk nilai 1-2. Detail dari dataset ini dapat dilihat pata \ref{tab:detail_sentiment_a}
+
+	\begin{table}[ht]
+	    \centering
+	    \caption{Rincian dataset \parencite{FarhanKhodra2017}}
+	    \begin{tabular}{@{}cc|cc@{}}
+			\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c|}{} & 
+			\multicolumn{1}{c}{\textit{Train}} & 
+			\multicolumn{1}{c}{\textit{Test}} \\ 
+			\cline{2-4}
+			\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Label}}
+			& Positif  & 6.281 & 1.125   \\[1.5ex]
+			& Negatif  & 6.108 & 1.304   \\ 
+			\cline{2-4}
+	    \end{tabular}
+	    \label{tab:detail_sentiment_a}
+	\end{table}
+	
+	Dataset kedua, dirujuk sebagai dataset B,  dan dataset dari Prosa.ai \parencite{CrisdayantiPurwarianti2019}. Dataset tersebut berupa kumpulan teks Twitter, Zomato, Facebook, Instagram, Qraved yang sudah dianotasi oleh annotator profesional. Setiap ulasan, yang terdiri dari satu sampai tiga kalimat, dapat memiliki frasa sentimen di awal, di tengah, dan di akhir dokumen. Detail dari dataset ini dapat dilihat pata \ref{tab:detail_sentiment_b}.
+
+	\begin{table}[ht]
+	    \centering
+	    \caption{Rincian dataset \parencite{CrisdayantiPurwarianti2019}}
+	    \begin{tabular}{@{}cc|cc@{}}
+			\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c|}{} & 
+			\multicolumn{1}{c}{\textit{Train}} & 
+			\multicolumn{1}{c}{\textit{Test}} \\ 
+			\cline{2-4}
+			\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Label}}
+			& Positif  & 7.151 & 208   \\[1.5ex]
+			& Negatif  & 3.830 &204   \\ 
+			\cline{2-4}
+	    \end{tabular}
+	    \label{tab:detail_sentiment_b}
+	\end{table}
+
+	Berikut contoh ulasan yang berlabel negatif:
 
 	“Kemaren sengaja coba makan di marugame udon karena istri suka banget sama udon. jadi pesan lah yang kuah kaldu ayam, dan anak saya minta gorengan kroket. saya kira kuahnya langsung dari pancinya harusnya panas, tapi ternyata cuman hangat, yah kecewa juga sih, gorengannya juga sama udah dingin” 
 
@@ -59,32 +99,49 @@ Bab ini berisi analisis dan rancangan berkaitan dengan studi literatur pada bab 
 		"ARTINYA APA ? Pribumi sadari \& lihat siapa mereka ? KECUALI KALIAN sama-sama CINA KOMUNIS / MISIONARIS abaikan tweet ini usir cina Indonesia"
 	\end{enumerate}
 
-	Dalam tugas akhir ini, analisis permasalahan dilakukan tidak sampai ke kategori, target, atau levelnya. Permasalahan ini disederhakan menjadi klasifikasi biner di mana teks diklasifikasi menjadi antara ujaran kebencian \& kasar atau tidak saja. Hal ini dilakukan berhubungan dengan ketersediaan data bahasa asing yang dibicarakan pada subbab selanjutnya.
+	Dalam tugas akhir ini, analisis permasalahan dilakukan tidak sampai ke kategori, target, atau levelnya. Permasalahan ini disederhakan menjadi klasifikasi biner di mana teks diklasifikasi menjadi antara ujaran kebencian \& kasar atau tidak saja. Hal ini dilakukan berhubungan dengan ketersediaan data bahasa asing yang dibicarakan pada subbab selanjutnya. Pada penelitian sebelumnya, model evaluasi digunakan dengan 10 K-Fold pada data. Pada penelitian ini, data dipartisi menjadi train dan test dengan persentase 80:20. Detail dari dataset ini dapat dilihat pata \ref{tab:detail_data_hs}.
 
-	Penelitian terkait oleh \parencite{Ibrohim_Budi_2019} mengekplorasi berbagai jenis algoritma dan fitur terbaik yang dapat digunakan untuk melakukan klasifikasi pada data tersebut.. Meski sudah mendapatkan hasil, penelitian terkait sebelumnya belum mengeksplorasi penggunaan \textit{language model} dalam bentuk apapun, terlebih lagi penggunaan \textit{transfer learning} lintas bahasa.
+	\begin{table}[ht]
+	    \centering
+	    \caption{Rincian dataset \parencite{Ibrohim_Budi_2019}}
+	    \begin{tabular}{@{}cc|cc@{}}
+			\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c|}{} & 
+			\multicolumn{1}{c}{\textit{Train}} & 
+			\multicolumn{1}{c}{\textit{Test}} \\ 
+			\cline{2-4}
+			\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Label}}
+			& Hate-speech  & 6.578 & 731   \\[1.5ex]
+			& Normal  & 5.274 & 1.586   \\ 
+			\cline{2-4}
+	    \end{tabular}
+	    \label{tab:detail_data_hs}
+	\end{table}
 
-	Perkembangan dalam bidang teknik pemrosesan teks dewasa ini telah memunculkan berbagai jenis \textit{language model} dan teknik pembangunannya. Salah satunya adalah \textit{language model} lintas bahasa bernama XLM oleh \parencite{LampleConneau2019} yang dibangun tanpa menggunakan korpus paralel atau kamus kata antar bahasa. Hal ini memungkinkan penggunaan representasi antar bahasanya untuk melatih model klasifikasi ujaran kebencian \& kasar bahasa Indonesia dengan dataset bahasa lainnya.
+	Penelitian terkait oleh \parencite{Ibrohim_Budi_2019} mengeksplorasi berbagai jenis algoritma dan fitur terbaik yang dapat digunakan untuk melakukan klasifikasi pada data tersebut. Meski sudah mendapatkan hasil, penelitian terkait sebelumnya belum mengeksplorasi penggunaan \textit{language model} dalam bentuk apapun, terlebih lagi penggunaan \textit{language model} lintas bahasa.
+
 
 \section{Rancangan Solusi}
 	Berdasarkan analisis permasalahan yang dijabarkan pada bab sebelumnya, \textit{language model} antar bahasa seperti XLM atau mBERT dapat digunakan untuk memperkaya analisis sentimen dan klasifikasi ujaran kebencian bahasa Indonesia. Diantara berbagai bahasa yang sudah dilatih pada \textit{language model} XLM dan mBERT adalah bahasa Indonesia dan bahasa Inggris. Subbab selanjutnya membahas pemilihan dataset bahasa Inggris yang digunakan dan rancangan eksperimen untuk membuktikan tujuan dari tugas akhir ini.
 
 	\subsection{Dataset Bahasa Inggris Analisis Sentimen}
-	Dataset bahasa Inggris yang digunakan adalah dataset ulasan pada website \textit{Yelp}\footnote{\url{https://www.yelp.com/dataset/challenge}}. Dataset dipilih dikarenakan jumlahnya dan kesesuaian domainnya dengan dataset TripAdvisor. Dataset polaritas Yelp reviews  dibangun dengan mengubah semua rating bintang 1 dan 2 menjadi negatif, dan rating bintang 3 dan 4 menjadi positif. Rincian dari dataset dapat dilihat pada tabel \ref{tab:detail_yelp_review}.
+	Dataset bahasa Inggris yang digunakan adalah dataset ulasan pada website \textit{Yelp}\footnote{\url{https://www.yelp.com/dataset}}. Dataset dipilih dikarenakan jumlahnya dan kesesuaian domainnya dengan dataset TripAdvisor. Dataset polaritas Yelp reviews  dibangun dengan mengubah semua rating bintang 1 dan 2 menjadi negatif, dan rating bintang 3 dan 4 menjadi positif. Rincian dari dataset dapat dilihat pada tabel \ref{tab:detail_yelp_review}.
 
 	\begin{table}[ht]
 	    \centering
 	    \caption{Rincian banyak data pada tiap partisi dan label di dataset \textit{Yelp review}}
 	    \begin{tabular}{@{}cc|cc@{}}
-	    \multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
-	    \multicolumn{1}{c}{} & 
-	    \multicolumn{1}{c|}{} & 
-	    \multicolumn{1}{c}{\textit{Train}} & 
-	    \multicolumn{1}{c}{\textit{Test}} \\ 
-	    \cline{2-4}
-	    \multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Label}}
-	    & Positif  & 280.000 & 19.000   \\[1.5ex]
-	    & Negatif  & 280.000 & 19.000   \\ 
-	    \cline{2-4}
+			\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{2}{c}{Partisi} \\ 
+			\multicolumn{1}{c}{} & 
+			\multicolumn{1}{c|}{} & 
+			\multicolumn{1}{c}{\textit{Train}} & 
+			\multicolumn{1}{c}{\textit{Test}} \\ 
+			\cline{2-4}
+			\multirow[c]{2}{*}{\rotatebox[origin=tr]{90}{Label}}
+			& Positif  & 280.000 & 19.000   \\[1.5ex]
+			& Negatif  & 280.000 & 19.000   \\ 
+			\cline{2-4}
 	    \end{tabular}
 	    \label{tab:detail_yelp_review}
 	\end{table}
