@@ -25,7 +25,41 @@ Eksperimen dilakukan dengan 2 model multilingual (XLM-R \& Multilingual BERT). P
 
 Pada eksperimen fine-tuning layer terakhir, dipilih probabilitas \textit{dropout} 0.2, \textit{learning rate} 1e-3, \textit{patience} callback ReduceLROnPlateau 5, dan \textit{patience} callback EarlyStopping 12. Sedangkan pada eksperimen fine-tuning penuh, dipilih probabilitas \textit{dropout} 0.2, \textit{learning rate} 1e-5, \textit{patience} callback ReduceLROnPlateau 0, dan \textit{patience} callback EarlyStopping 4. Dapat dilihat pemilihan \textit{hyperparamter} yang lebih agresif pada eksperimen fine-tuning layer terakhir. Besar \textit{learning rate} 1e-5 fine-tuning penuh ini berdekatan dengan anjuran besar \textit{learning rate} fine-tuning penuh penelitian \parencite{Devlin_Chang_Lee_Toutanova_2019}. Untuk \textit{learning rate} fine-tuning layer terakhir, hal ini mengikuti \parencite{Peters_Ruder_Smith_2019} yang mendukung penggunaan learning rate lebih besar di layer yang lebih akhir. 
 
-Pada tiap eksperimen, data \textit{train} akan dipisah menjadi data latih dan validasi dengan besar pembagian 9:1. Pada tiap epoch, model dilatih pada bagian data latih dan divalidasi pada bagian data validasi. Tergantung dengan performa dari validasi tadi, model akan menentukan apakah pelatihan akan dilanjutkan, \textit{learning rate} diturunkan, atau pelatihan diberhentikan. Pada akhir pelatihan, model dengan performa pada data validasi terbaik akan digunakan untuk memprediksi data uji.
+Pada tiap eksperimen, data \textit{train} akan dipisah menjadi data latih dan validasi dengan besar pembagian 9:1. Pada tiap epoch, model dilatih pada bagian data latih dan divalidasi pada bagian data validasi. Tergantung dengan performa dari validasi tadi, model akan menentukan apakah pelatihan akan dilanjutkan, \textit{learning rate} diturunkan, atau pelatihan diberhentikan. Pada akhir pelatihan, model dengan performa pada data validasi terbaik akan digunakan untuk memprediksi data uji. Seluruh kode eksperimen dan visualisasi terdapat di GitHub\footnote{\url{https://github.com/ilhamfp/indonesian-text-classification-multilingual}}. Secara kasar, \textit{pseudo-code} pelatihan dapat dilihat pada kode di bawah ini. 
+
+\begin{lstlisting}[language=Python]
+def pseudocode_eksperimen():
+    data_latih, data_validasi, data_test = inisialisasi_data()
+    for epoch in total_epoch:
+
+        ##################
+        # Fase pelatihan #
+        # Gunakan model sekarang untuk memprediksi data
+        # Kemudian dihitung besar loss 
+        # berdasarkan objektif pelatihan
+        prediksi = model(data_latih.teks)
+        loss = objektif_pelatihan(prediksi, data_latih.label)
+        loss.backward() # Lakukan backward pass
+
+        #################
+        # Fase validasi #
+        prediksi = model(data_validasi.teks)
+        skor = metrik_evaluasi(prediksi, data_validasi.label)
+        
+        # Melalui hasil fungsi callback 
+        # dengan skor evaluasi, ditentukan jika:
+        # 1. Hasil terbaik sejauh ini: parameter model disimpan
+        # 2. Hasil turun: learning rate model dibagi 2
+        # 3. Hasil turun berturut-turut: model berhenti dilatih
+        callback(skor)
+
+    ############
+    # Fase Tes #
+    # Lakukan prediksi pada data tes
+    model = model.load(parameter_terbaik)
+    prediksi_tes = model(data_test.teks)
+    return metrik_evaluasi(prediksi_tes, data_test.label)
+\end{lstlisting}
 
     \subsection{Hasil fine-tuning layer terakhir model XLM-R}
         Berikut hasil eksperimen \textit{fine-tuning} layer terakhir dengan model XLM-R: 
