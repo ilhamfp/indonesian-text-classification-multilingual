@@ -2,10 +2,10 @@
 
 This repository contains my final year undergraduate assignment on Institut Teknologi Bandung, supervised by [Dr. Eng. Ayu Purwarianti, ST.,MT](https://scholar.google.co.id/citations?user=8jUro_cAAAAJ&hl=en). It contains the unpolished source codes (`.py` on [/src](./src/) and `.ipynb` on [/notebooks](./)), [book](./docs/book) (Indonesian), and [paper](./docs/paper) (English).
 
-* Book title:
+* Book title:  
 **Klasifikasi Teks Berbahasa Indonesia Menggunakan Multilingual Language Model (Studi Kasus: Klasifikasi Ujaran Kebencian dan Analisis Sentimen)**
 
-* Paper title:
+* Paper title:  
 **Improving Indonesian Text Classification Using Multilingual Language Model**
 
 
@@ -65,14 +65,14 @@ On feature-based experiment, we set the final layer dropout probability to 0.2, 
 To ensure reproducibility, we set every random seed possible on each experiment. On the feature-based experiment, we average the result of 6 different runs by varying the seed from 1-6. Running the same experiment on feature-based approach results in the same final score. On the full fine-tune experiment, we only run one experiment. While the result should not differ substantially, [the exact reproducibility cannot be guaranteed as the training was done on a TPU](https://suneeta-mall.github.io/2019/12/22/Reproducible-ml-tensorflow.html).
 ## Result
 #### A. Feature-based experiment
-<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-xlmr-english.png" alt="xlm-r-1-result" width="320"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-xlmr-english.png" alt="xlm-r-1-result" width="320"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-xlmr-english.png" alt="xlm-r-1-result" width="320"/> </p>
+<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-xlmr-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-xlmr-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-xlmr-english.png" alt="xlm-r-1-result" width="400"/> </p>
 <p align="center">Fig. 1. Feature-based experiment result with XLM-R on [3] (left), [4] (middle), and [5] (right)</p>   
   
   
 The result of feature-based experiment with XLM-R model on all datasets can be seen on Fig 1. Through this result, we can see that adding English data can help the performance of the model. On [3] & [4] dataset, adding English data consistently improves the performance. But on [5] dataset, there's a point where the added English data results in worse performance. We hypothesize this is due to the large difference in what constitutes hate-speech (or toxic by Jigsaw dataset) between the datasets used.    
    
 
-<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-mbert-english.png" alt="xlm-r-1-result" width="320"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-mbert-english.png" alt="xlm-r-1-result" width="320"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-mbert-english.png" alt="xlm-r-1-result" width="320"/> </p>
+<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-mbert-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-mbert-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-mbert-english.png" alt="xlm-r-1-result" width="400"/> </p>
 <p align="center">Fig. 2. Feature-based experiment result with mBERT on [3] (left), [4] (middle), and [5] (right)</p>
 
 The result of feature-based experiment with mBERT model on all datasets can be seen on Fig 2. The same phenomena is observed on mBERT based experiment, although the performance is substantially lower. This is expected as XLM-R is designed to improve mBERT on various design choices.  
@@ -87,9 +87,9 @@ Defining the gain as the difference between monolingual and its highest multilin
 The result of fully fine-tuning all parameters, in addition to utilizing English data, proved to be effective in building a better Indonesian text classification model. On [3] dataset, the highest performance achieved on zero-shot scenario where it yielded 0.893 F1-score, improving the previous works of 0.834. On [4] dataset, the highest performance achieved on multilingual(1.5) scenario where it yielded perfect F1-score, improving the previous works of 0,9369. On [5] dataset, the highest performance achieved on multilingual(3) scenario where it yielded 0.898 F1-score and 89.9% accuracy. To provide a fair comparison with the previous work by Ibrohim & Budi [5], we also ran the experiment using the original label and monolingual scenario. The experiment yielded 89.52% average accuracy, improving the previous works of 77.36%.
 
 ## References
-Research mentioned in this README:
-[1] J. Devlin et al. “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding”. In: arXiv:1810.04805 [cs] (2019). arXiv: 1810.04805. URL: http://arxiv.org/abs/1810.04805.
-[2] A. Conneau et al. “Unsupervised Cross-lingual Representation Learning at Scale”. In: arXiv:1911.02116 [cs] (2020). arXiv: 1911.02116. URL: http://arxiv.org/abs/1911.02116.
-[3] A. N. Farhan & M. L. Khodra. “Sentiment-specific word embedding for Indonesian sentiment analysis”. In: 2017 International Conference on Advanced Informatics, Concepts, Theory, and Applications (ICAICTA). 2017, 1–5. DOI: 10.1109/ICAICTA.2017.8090964.
-[4] I. A.P. A. Crisdayanti & A. Purwarianti. “Improving Bi-LSTM Performance for Indonesian Sentiment Analysis Using Paragraph Vector”. In: (2019).
-[5] M. O. Ibrohim & I. Budi. “Multi-label Hate Speech and Abusive Language Detection in Indonesian Twitter”. In: Proceedings of the Third Workshop on Abusive Language Online. Association for Computational Linguistics, 2019, 46–57. DOI: 10 . 18653 / v1 / W19 - 3506. URL: https://www.aclweb.org/anthology/W19-3506.
+Research mentioned in this README:  
+[1] J. Devlin et al. “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding”. In: arXiv:1810.04805 [cs] (2019). arXiv: 1810.04805. URL: http://arxiv.org/abs/1810.04805.  
+[2] A. Conneau et al. “Unsupervised Cross-lingual Representation Learning at Scale”. In: arXiv:1911.02116 [cs] (2020). arXiv: 1911.02116. URL: http://arxiv.org/abs/1911.02116.  
+[3] A. N. Farhan & M. L. Khodra. “Sentiment-specific word embedding for Indonesian sentiment analysis”. In: 2017 International Conference on Advanced Informatics, Concepts, Theory, and Applications (ICAICTA). 2017, 1–5. DOI: 10.1109/ICAICTA.2017.8090964.  
+[4] I. A.P. A. Crisdayanti & A. Purwarianti. “Improving Bi-LSTM Performance for Indonesian Sentiment Analysis Using Paragraph Vector”. In: (2019).  
+[5] M. O. Ibrohim & I. Budi. “Multi-label Hate Speech and Abusive Language Detection in Indonesian Twitter”. In: Proceedings of the Third Workshop on Abusive Language Online. Association for Computational Linguistics, 2019, 46–57. DOI: 10 . 18653 / v1 / W19 - 3506. URL: https://www.aclweb.org/anthology/W19-3506.  
