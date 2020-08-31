@@ -58,7 +58,7 @@ More details on the book and paper. Quick summary:
 
 
 #### D. Training Reproducibility and Hyperparameters
-From the dataset detailed in Table I & II, the training data further split into training and validation set with a 90:10 ratio. The split was done in a stratified fashion, conserving the distribution of labels between the training & validation set. The result is a dataset separated into training, validation, and test sets.  
+We split the training data into training and validation set with a 90:10 ratio. The split was done in a stratified fashion, conserving the distribution of labels between the training & validation set. The result is a dataset separated into training, validation, and test sets.  
   
 Each experiment will train the model using the training set and validate it to the validation set on each epoch. After each epoch, we will evaluate whether we will continue, reduce the learning rate, or stop the training process based on validation set performance and the hyperparameter set on each condition. In the end, we use the model from the best performing epoch based on its validation performance to predict the test set.   
 
