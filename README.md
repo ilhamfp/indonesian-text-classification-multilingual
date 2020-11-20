@@ -1,3 +1,6 @@
+One sentence summary:
+> You can use English text data to improve Indonesian text classification performance using a multilingual language model.
+
 # Indonesian Text Classification Multilingual
 
 This repository is my final year undergraduate assignment on Institut Teknologi Bandung, supervised by [Dr. Eng. Ayu Purwarianti, ST.,MT](https://scholar.google.co.id/citations?user=8jUro_cAAAAJ&hl=en). It contains the unpolished source codes (`.py` on [/src](./src/) and `.ipynb` on [/notebooks](./)), [book](./docs/book) (Indonesian), and [paper](./docs/paper) (English).
@@ -5,8 +8,8 @@ This repository is my final year undergraduate assignment on Institut Teknologi 
 * Book title:  
 **Klasifikasi Teks Berbahasa Indonesia Menggunakan Multilingual Language Model (Studi Kasus: Klasifikasi Ujaran Kebencian dan Analisis Sentimen)**
 
-* Paper title:  
-**Improving Indonesian Text Classification Using Multilingual Language Model**
+* Paper title ([Arxiv](https://arxiv.org/abs/2009.05713)):  
+**Improving Indonesian Text Classification Using Multilingual Language Model** 
 
 
 ## Project Organization
