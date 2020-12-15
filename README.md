@@ -3,7 +3,7 @@ One sentence summary:
 
 # Indonesian Text Classification Multilingual
 
-This repository is my final year undergraduate assignment on Institut Teknologi Bandung, supervised by [Dr. Eng. Ayu Purwarianti, ST.,MT](https://scholar.google.co.id/citations?user=8jUro_cAAAAJ&hl=en). It contains the unpolished source codes (`.py` on [/src](./src/) and `.ipynb` on [/notebooks](./)), [book](./docs/book) (Indonesian), and paper (English).
+This repository is my final year undergraduate project on Institut Teknologi Bandung, supervised by [Dr. Eng. Ayu Purwarianti, ST.,MT](https://scholar.google.co.id/citations?user=8jUro_cAAAAJ&hl=en). It contains the unpolished source codes (`.py` on [/src](./src/) and `.ipynb` on [/notebooks](./)), [book](./docs/book) (Indonesian), and paper (English).
 
 * Book title:  
 **Klasifikasi Teks Berbahasa Indonesia Menggunakan Multilingual Language Model (Studi Kasus: Klasifikasi Ujaran Kebencian dan Analisis Sentimen)**
