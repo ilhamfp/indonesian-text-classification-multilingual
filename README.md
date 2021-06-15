@@ -71,14 +71,14 @@ To ensure reproducibility, we set every random seed possible on each experiment.
 
 ## Result
 #### A. Feature-based experiment
-<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-xlmr-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-xlmr-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-xlmr-english.png" alt="xlm-r-1-result" width="400"/> </p>
+<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-xlmr-english.png" alt="xlm-r-1-result" width="250"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-xlmr-english.png" alt="xlm-r-1-result" width="250"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-xlmr-english.png" alt="xlm-r-1-result" width="250"/> </p>
 <p align="center">Fig. 1. Feature-based experiment result with XLM-R on [3] (left), [4] (middle), and [5] (right)</p>   
   
   
 The result of feature-based experiments with XLM-R model on all datasets can be seen in Fig 1. Through this result, we can see that adding English data can help the performance of the model. On [3] & [4] dataset, adding English data consistently improves the performance. But on [5] dataset, there's a point where the added English data results in worse performance. We hypothesize this is due to the large difference in what constitutes hate-speech (or toxic by Jigsaw dataset) between the datasets used.   
    
 
-<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-mbert-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-mbert-english.png" alt="xlm-r-1-result" width="400"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-mbert-english.png" alt="xlm-r-1-result" width="400"/> </p>
+<p align="center"> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-trip-mbert-english.png" alt="xlm-r-1-result" width="250"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-prosa-mbert-english.png" alt="xlm-r-1-result" width="250"/> <img src=".\notebooks\result_analysis\fine_tune_head\compilation\plot-toxic-mbert-english.png" alt="xlm-r-1-result" width="250"/> </p>
 <p align="center">Fig. 2. Feature-based experiment result with mBERT on [3] (left), [4] (middle), and [5] (right)</p>
 
 The result of feature-based experiments with mBERT model on all datasets can be seen in Fig 2. The same phenomenon is observed on mBERT based experiment, although the performance is substantially lower. This is expected as XLM-R is designed to improve mBERT on various design choices.  
